@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChangeEvent, DragEvent, useEffect, useRef, useState } from "react";
 import { FileText, Loader2, Sparkles } from "lucide-react";
+import { INTERVIEW_STORAGE_KEYS } from "@/lib/interview/client-storage";
 
 type AnalysisState = "idle" | "analyzing" | "ready";
 
@@ -13,14 +14,31 @@ export function DropZone() {
   const [isDragging, setIsDragging] = useState(false);
   const [analysisState, setAnalysisState] = useState<AnalysisState>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [candidateName, setCandidateName] = useState("");
+  const [targetRole, setTargetRole] = useState("Frontend Engineer");
+  const [highlights, setHighlights] = useState("");
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.workflowStep, "cv-upload");
+    }
+
     return () => {
       if (analysisTimeoutRef.current) {
         window.clearTimeout(analysisTimeoutRef.current);
       }
     };
   }, []);
+
+  const buildCandidateNameFromFile = (fileName: string) => {
+    const cleaned = fileName
+      .replace(/\.pdf$/i, "")
+      .replace(/[\-_]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return cleaned || "Ứng viên";
+  };
 
   const handleFile = (file: File | undefined) => {
     if (!file) return;
@@ -34,7 +52,16 @@ export function DropZone() {
 
     setErrorMessage("");
     setSelectedFile(file.name);
+    setCandidateName((current) => current || buildCandidateNameFromFile(file.name));
     setAnalysisState("analyzing");
+
+    if (typeof window !== "undefined") {
+      window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.transcript);
+      window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.transcriptJson);
+      window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.evaluation);
+      window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.evaluationId);
+      window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.status, "IN_PROGRESS");
+    }
 
     if (analysisTimeoutRef.current) {
       window.clearTimeout(analysisTimeoutRef.current);
@@ -53,6 +80,25 @@ export function DropZone() {
     event.preventDefault();
     setIsDragging(false);
     handleFile(event.dataTransfer.files?.[0]);
+  };
+
+  const persistCandidateProfile = () => {
+    if (!selectedFile || typeof window === "undefined") {
+      return;
+    }
+
+    const profile = {
+      candidateName: candidateName.trim() || "Ứng viên",
+      targetRole: targetRole.trim() || "Frontend Engineer",
+      cvFileName: selectedFile,
+      highlights: highlights.trim(),
+    };
+
+    window.sessionStorage.setItem(
+      INTERVIEW_STORAGE_KEYS.candidateProfile,
+      JSON.stringify(profile),
+    );
+    window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.workflowStep, "cv-evaluation");
   };
 
   return (
@@ -106,6 +152,57 @@ export function DropZone() {
             {selectedFile}
           </p>
 
+          <div className="mt-5 grid gap-3 text-left">
+            <div>
+              <label
+                htmlFor="candidateName"
+                className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500"
+              >
+                Tên ứng viên
+              </label>
+              <input
+                id="candidateName"
+                value={candidateName}
+                onChange={(event) => setCandidateName(event.target.value)}
+                placeholder="Ví dụ: Nguyen Minh Anh"
+                className="h-11 w-full rounded-xl border border-slate-200 bg-white/90 px-3 text-sm text-slate-700 outline-none ring-sky-200 transition focus:ring-2"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="targetRole"
+                className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500"
+              >
+                Vị trí ứng tuyển
+              </label>
+              <input
+                id="targetRole"
+                value={targetRole}
+                onChange={(event) => setTargetRole(event.target.value)}
+                placeholder="Ví dụ: Frontend Engineer"
+                className="h-11 w-full rounded-xl border border-slate-200 bg-white/90 px-3 text-sm text-slate-700 outline-none ring-sky-200 transition focus:ring-2"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="highlights"
+                className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-500"
+              >
+                Điểm nhấn CV (tuỳ chọn)
+              </label>
+              <textarea
+                id="highlights"
+                value={highlights}
+                onChange={(event) => setHighlights(event.target.value)}
+                rows={3}
+                placeholder="Ví dụ: 4 năm React/Next.js, tối ưu hiệu năng, dẫn dắt UI team..."
+                className="w-full rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-sm text-slate-700 outline-none ring-sky-200 transition focus:ring-2"
+              />
+            </div>
+          </div>
+
           {analysisState === "analyzing" ? (
             <div className="mt-5 inline-flex items-center gap-3 rounded-full border border-sky-200 bg-sky-50 px-5 py-3 text-sm font-medium text-sky-700">
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -115,7 +212,8 @@ export function DropZone() {
 
           {analysisState === "ready" ? (
             <Link
-              href="/evaluation"
+              href="/evaluation?mode=cv"
+              onClick={persistCandidateProfile}
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-rose-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(99,102,241,0.32)] transition-transform duration-300 hover:scale-[1.02]"
             >
               <Sparkles className="h-4 w-4" />

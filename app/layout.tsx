@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Space_Grotesk } from "next/font/google";
+import { Suspense } from "react";
 import { FloatingHeader } from "@/components/ui/floating-header";
 import { MeshBackground } from "@/components/ui/mesh-background";
 import "./globals.css";
@@ -32,7 +33,9 @@ export default function RootLayout({
       <body className="min-h-full bg-slate-50 text-slate-900">
         <div className="relative min-h-screen overflow-x-hidden">
           <MeshBackground />
-          <FloatingHeader />
+          <Suspense fallback={null}>
+            <FloatingHeader />
+          </Suspense>
           <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 pb-10 pt-28 sm:px-8 sm:pt-32">
             {children}
           </main>

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "bc5be511-0941-4c27-9bde-e192c97e527b",
+    "provider": "gemini",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775477231907-user",
+        "role": "user",
+        "message": "em là Học, sinh viên năm 4 trường Đà Lạt, gpa 3,48/4, em từng tham gia nhiều dự án xây dựng frontend và biết phối hợp sử dụng AI để xây dựng FE",
+        "timestamp": "19:07"
+      },
+      {
+        "id": "turn-1775477237325-ai",
+        "role": "ai",
+        "message": "Bạn đề cập đến việc phối hợp với AI để xây dựng Frontend; cụ thể bạn đã áp dụng AI vào quy trình nào (ví dụ: generate UI, tối ưu code, hay viết unit test) và bạn làm thế nào để kiểm soát chất lượng code mà AI tạo ra?",
+        "timestamp": "19:07"
+      },
+      {
+        "id": "turn-1775477378863-user",
+        "role": "user",
+        "message": "trước khi dùng AI để tạo giao diện thì mình thường tạo prompt để mô tả chi tiết giao diện mong muốn, phong cách giao diện như nào, và sau khi AI tạo xong thì sẽ kiểm tra xem giao diện đã được như ý chưa, có điều gì cần sửa không, và em thường review các đoạn code trước khi chọn giữ lại hoặc loại bỏ, những phần nào chưa đúng thì em sẽ yêu cầu AI tạo lại theo mô tả của bản thân",
+        "timestamp": "19:09"
+      },
+      {
+        "id": "turn-1775477383560-ai",
+        "role": "ai",
+        "message": "Khi AI tạo ra các đoạn code giao diện, làm thế nào bạn thực hiện việc tách nhỏ component (component decomposition) và quản lý các logic phức tạp như State Management để đảm bảo code vẫn tuân thủ các nguyên lý như DRY và dễ dàng bảo trì trong dài hạn?",
+        "timestamp": "19:09"
+      }
+    ],
+    "evaluation": {
+      "score": 68,
+      "strengths": [
+        "Nền tảng học thuật tốt với GPA ấn tượng (3.48/4).",
+        "Có tư duy hiện đại trong việc ứng dụng AI vào quy trình phát triển phần mềm.",
+        "Có ý thức về việc kiểm soát chất lượng (review code) thay vì phụ thuộc hoàn toàn vào AI."
+      ],
+      "weaknesses": [
+        "Kỹ năng giao tiếp còn mang tính chất sinh viên, chưa thể hiện được phong thái chuyên nghiệp của một kỹ sư.",
+        "Các câu trả lời còn chung chung, thiếu các thuật ngữ kỹ thuật chuyên sâu hoặc ví dụ cụ thể về công nghệ (React, Vue, Tailwind, v.v.).",
+        "Chưa thể hiện rõ khả năng xử lý các vấn đề phức tạp hơn như kiến trúc hệ thống hay tối ưu hiệu năng."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+          "user_answer": "em là Học, sinh viên năm 4 trường Đà Lạt, gpa 3,48/4, em từng tham gia nhiều dự án xây dựng frontend và biết phối hợp sử dụng AI để xây dựng FE",
+          "feedback": "Câu trả lời đầy đủ thông tin cơ bản nhưng cách diễn đạt còn hơi sơ sài. Việc nêu GPA là một điểm cộng lớn cho sinh viên mới tốt nghiệp.",
+          "suggested_answer": "Chào anh/chị, em là Học, sinh viên năm cuối chuyên ngành CNTT tại ĐH Đà Lạt. Với GPA 3.48/4, em tự tin về nền tảng lý thuyết của mình. Em có kinh nghiệm thực hiện các dự án Frontend thực tế và đặc biệt yêu thích việc kết hợp các công cụ AI để tối ưu hóa quy trình phát triển, giúp tăng tốc độ coding mà vẫn đảm bảo độ chính xác."
+        },
+        {
+          "id": "review-2",
+          "question": "Bạn đề cập đến việc phối hợp với AI để xây dựng Frontend; cụ thể bạn đã áp dụng AI vào quy trình nào và bạn làm thế nào để kiểm soát chất lượng code mà AI tạo ra?",
+          "user_answer": "trước khi dùng AI để tạo giao diện thì mình thường tạo prompt để mô tả chi tiết giao diện mong muốn, phong cách giao diện như nào, và sau khi AI tạo xong thì sẽ kiểm tra xem giao diện đã được như ý chưa, có điều gì cần sửa không, và em thường review các đoạn code trước khi chọn giữ lại hoặc loại bỏ, những phần nào chưa đúng thì em sẽ yêu cầu AI tạo lại theo mô tả của bản thân",
+          "feedback": "Ứng viên đã mô tả được quy trình làm việc cơ bản. Tuy nhiên, cần làm rõ các tiêu chí kỹ thuật khi 'review' như: tính tái sử dụng, hiệu năng, hoặc khả năng bảo trì.",
+          "suggested_answer": "Em sử dụng AI để tạo khung (boilerplate) và các component nhỏ. Để kiểm soát chất lượng, em thực hiện 3 bước: 1. Kiểm tra tính đúng đắn của logic; 2. Refactor lại code để đảm bảo tính tái sử dụng và tuân thủ coding convention của dự án; 3. Sử dụng các công cụ linter để quét lỗi tiềm ẩn mà AI có thể bỏ qua."
+        }
+      ],
+      "summary": "Ứng viên tiềm năng với nền tảng học thuật khá giỏi và khả năng thích nghi với công cụ mới nhanh. Tuy nhiên, ứng viên cần trau dồi thêm về kiến thức chuyên sâu (Deep Tech) và kỹ năng trình bày vấn đề một cách chuyên nghiệp hơn để phù hợp với môi trường doanh nghiệp."
+    },
+    "createdAt": "2026-04-06T12:10:05.452Z"
+  }
+]
