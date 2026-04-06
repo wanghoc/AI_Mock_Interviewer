@@ -15,9 +15,40 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+const metadataBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(metadataBaseUrl),
   title: "AI Mock Interviewer",
-  description: "Light glassmorphism interface for AI-powered mock interview experience",
+  description:
+    "Biến áp lực thành tự tin: Trợ lý AI cá nhân giúp bạn phân tích CV và luyện tập phỏng vấn như một chuyên gia.",
+  icons: {
+    icon: "/brand-mark.svg",
+    shortcut: "/brand-mark.svg",
+    apple: "/brand-mark.svg",
+  },
+  openGraph: {
+    title: "AI Mock Interviewer",
+    description:
+      "Biến áp lực thành tự tin: Trợ lý AI cá nhân giúp bạn phân tích CV và luyện tập phỏng vấn như một chuyên gia.",
+    type: "website",
+    locale: "vi_VN",
+    images: [
+      {
+        url: "/og-preview.svg",
+        width: 1200,
+        height: 630,
+        alt: "AI Mock Interviewer - CV analysis and interview practice",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Mock Interviewer",
+    description:
+      "Biến áp lực thành tự tin: Trợ lý AI cá nhân giúp bạn phân tích CV và luyện tập phỏng vấn như một chuyên gia.",
+    images: ["/og-preview.svg"],
+  },
 };
 
 export default function RootLayout({

@@ -1,0 +1,43 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="meshA" x1="120" y1="70" x2="1120" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E0F2FE" />
+      <stop offset="0.45" stop-color="#EEF2FF" />
+      <stop offset="1" stop-color="#FFE4E6" />
+    </linearGradient>
+    <linearGradient id="chip" x1="350" y1="120" x2="860" y2="460" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8" />
+      <stop offset="0.5" stop-color="#6366F1" />
+      <stop offset="1" stop-color="#FB7185" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#meshA)" />
+
+  <circle cx="150" cy="560" r="190" fill="#BAE6FD" fill-opacity="0.55" />
+  <circle cx="1080" cy="120" r="170" fill="#C7D2FE" fill-opacity="0.55" />
+
+  <rect x="70" y="68" width="1060" height="494" rx="42" fill="#FFFFFF" fill-opacity="0.72" />
+  <rect x="70" y="68" width="1060" height="494" rx="42" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="2" />
+
+  <rect x="120" y="120" width="170" height="170" rx="46" fill="url(#chip)" />
+  <rect x="120" y="120" width="170" height="170" rx="46" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="2" />
+
+  <circle cx="205" cy="205" r="54" fill="#FFFFFF" fill-opacity="0.78" />
+  <path d="M182 230V182L205 212L228 182V230" stroke="#0F172A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+
+  <text x="330" y="196" fill="#0F172A" font-family="'Segoe UI', sans-serif" font-size="54" font-weight="700">
+    AI Mock Interviewer
+  </text>
+  <text x="330" y="250" fill="#334155" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="500">
+    Bien ap luc thanh tu tin voi tro ly AI ca nhan.
+  </text>
+
+  <rect x="120" y="340" width="960" height="164" rx="28" fill="#FFFFFF" fill-opacity="0.86" />
+  <text x="156" y="408" fill="#0F172A" font-family="'Segoe UI', sans-serif" font-size="40" font-weight="700">
+    Phan tich CV thong minh, mo phong phong van thuc chien.
+  </text>
+  <text x="156" y="455" fill="#475569" font-family="'Segoe UI', sans-serif" font-size="24" font-weight="500">
+    Ho tro danh gia ky nang, xay dung phan hoi va de xuat cau tra loi chuan chuyen gia.
+  </text>
+</svg>

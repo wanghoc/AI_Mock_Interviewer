@@ -16,8 +16,8 @@ export default function Home() {
         </h1>
 
         <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-          Tải CV và bước vào một phiên mô phỏng phỏng vấn cùng AI với giao diện
-          Liquid Glass tập trung vào trải nghiệm trực quan và cảm xúc.
+          Biến áp lực thành tự tin: Trợ lý AI cá nhân giúp bạn phân tích CV và
+          luyện tập phỏng vấn như một chuyên gia.
         </p>
       </div>
 

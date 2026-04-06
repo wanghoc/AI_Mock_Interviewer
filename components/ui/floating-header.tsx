@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import {
@@ -7,7 +8,6 @@ import {
   CircleCheckBig,
   FileText,
   MessageCircleMore,
-  Sparkles,
 } from "lucide-react";
 
 type WorkflowStep = {
@@ -71,8 +71,14 @@ export function FloatingHeader() {
           href="/"
           className="group inline-flex shrink-0 items-center gap-2 font-[family-name:var(--font-space-grotesk)] text-lg font-semibold tracking-tight text-slate-900"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-sky-100 bg-gradient-to-br from-sky-100 to-indigo-100 text-sky-700 transition-transform duration-300 group-hover:scale-105">
-            <Sparkles className="h-4 w-4" />
+          <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-sky-100 bg-white transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/brand-mark.svg"
+              alt="AI Mock Interviewer logo"
+              width={28}
+              height={28}
+              priority
+            />
           </span>
           <span className="bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
             AI Mock Interviewer

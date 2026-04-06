@@ -1,0 +1,24 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="24" y1="24" x2="232" y2="232" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8" />
+      <stop offset="0.5" stop-color="#6366F1" />
+      <stop offset="1" stop-color="#FB7185" />
+    </linearGradient>
+    <linearGradient id="glass" x1="64" y1="48" x2="196" y2="208" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.38" />
+    </linearGradient>
+  </defs>
+
+  <rect x="16" y="16" width="224" height="224" rx="64" fill="url(#bg)" />
+  <rect x="16" y="16" width="224" height="224" rx="64" stroke="#FFFFFF" stroke-opacity="0.48" stroke-width="2" />
+
+  <circle cx="128" cy="126" r="72" fill="url(#glass)" />
+  <circle cx="128" cy="126" r="71" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="2" />
+
+  <path d="M97 158V95L128 134L159 95V158" stroke="#0F172A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M88 181H168" stroke="#0F172A" stroke-width="12" stroke-linecap="round" />
+
+  <path d="M172 158L190 176V150" fill="#0F172A" fill-opacity="0.78" />
+</svg>
