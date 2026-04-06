@@ -26,7 +26,7 @@ const initialTranscript: InterviewTurn[] = [
     role: "ai",
     timestamp: "09:01",
     message:
-      "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+      "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
   },
 ];
 
@@ -96,6 +96,10 @@ function getFallbackQuestion(transcript: InterviewTurn[]): string {
   return fallbackFollowUpQuestions[aiTurns % fallbackFollowUpQuestions.length];
 }
 
+function buildIntroQuestion(role: string): string {
+  return `Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ${role}.`;
+}
+
 function parseCandidateProfile(): InterviewCandidateProfile | undefined {
   if (typeof window === "undefined") {
     return undefined;
@@ -123,7 +127,7 @@ function parseCandidateProfile(): InterviewCandidateProfile | undefined {
 
     return {
       candidateName: candidateName || "Ứng viên",
-      targetRole: targetRole || "Frontend Engineer",
+      targetRole: targetRole || "Vị trí ứng tuyển",
       cvFileName: cvFileName || "resume.pdf",
       highlights:
         typeof record.highlights === "string" ? record.highlights.trim() : undefined,
@@ -147,6 +151,7 @@ export function InterviewPanel() {
   const [chatError, setChatError] = useState<string>("");
   const [candidateProfile, setCandidateProfile] =
     useState<InterviewCandidateProfile | undefined>(undefined);
+  const [cvContext, setCvContext] = useState("");
 
   const isEvaluating = sessionStatus === "EVALUATING";
 
@@ -162,6 +167,18 @@ export function InterviewPanel() {
 
     if (storedTranscript.length > 0) {
       setTranscript(storedTranscript);
+    } else {
+      const profile = parseCandidateProfile();
+      const role = profile?.targetRole || "vị trí ứng tuyển";
+
+      setTranscript([
+        {
+          id: "turn-1",
+          role: "ai",
+          timestamp: formatCurrentTime(),
+          message: buildIntroQuestion(role),
+        },
+      ]);
     }
 
     const storedStatus = window.sessionStorage.getItem(INTERVIEW_STORAGE_KEYS.status);
@@ -175,6 +192,9 @@ export function InterviewPanel() {
     }
 
     setCandidateProfile(parseCandidateProfile());
+    setCvContext(
+      window.sessionStorage.getItem(INTERVIEW_STORAGE_KEYS.cvText) ?? "",
+    );
     window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.workflowStep, "interview");
   }, []);
 
@@ -258,6 +278,7 @@ export function InterviewPanel() {
           transcript: nextTranscript,
           language: "vi",
           profile: candidateProfile,
+          cvContext,
         }),
       });
 
@@ -281,7 +302,13 @@ export function InterviewPanel() {
           ? error.message
           : "Đã xảy ra lỗi trong quá trình hội thoại AI.",
       );
-      appendAiMessage(getFallbackQuestion(nextTranscript));
+
+      const role = candidateProfile?.targetRole || "vị trí ứng tuyển";
+      const fallback = cvContext.trim()
+        ? `Dựa trên CV của bạn cho vị trí ${role}, bạn hãy mô tả dự án tiêu biểu nhất và kết quả định lượng bạn đạt được.`
+        : getFallbackQuestion(nextTranscript);
+
+      appendAiMessage(fallback);
     } finally {
       setIsAwaitingAi(false);
     }
@@ -320,7 +347,7 @@ export function InterviewPanel() {
                 Live Interview
               </p>
               <h2 className="mt-1 font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900 sm:text-2xl">
-                Frontend Engineer Session
+                {(candidateProfile?.targetRole || "Interview")} Session
               </h2>
             </div>
             <span
@@ -395,7 +422,7 @@ export function InterviewPanel() {
               {candidateProfile?.candidateName || "Ứng viên"}
             </h3>
             <p className="text-sm text-slate-500">
-              {candidateProfile?.targetRole || "Frontend Engineer"}
+              {candidateProfile?.targetRole || "Vị trí ứng tuyển"}
             </p>
 
             <ul className="mt-4 space-y-3">

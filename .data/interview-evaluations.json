@@ -65,5 +65,171 @@
       "summary": "Ứng viên tiềm năng với nền tảng học thuật khá giỏi và khả năng thích nghi với công cụ mới nhanh. Tuy nhiên, ứng viên cần trau dồi thêm về kiến thức chuyên sâu (Deep Tech) và kỹ năng trình bày vấn đề một cách chuyên nghiệp hơn để phù hợp với môi trường doanh nghiệp."
     },
     "createdAt": "2026-04-06T12:10:05.452Z"
+  },
+  {
+    "id": "3d907786-a0da-4229-b4f7-2adf38c2266d",
+    "provider": "gemini",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+        "timestamp": "09:01"
+      }
+    ],
+    "evaluation": {
+      "score": 0,
+      "strengths": [
+        "Co the hien duoc kha nang giao tiep va trinh bay y tuong mach lac.",
+        "Tra loi dung trong tam cho mot so cau hoi ky thuat chinh.",
+        "The hien thai do hop tac va san sang hoc hoi."
+      ],
+      "weaknesses": [
+        "Can them vi du thuc te co metric de tang tinh thuyet phuc.",
+        "Nen tra loi co cau truc on dinh va ngan gon hon.",
+        "Can dao sau hon ve trade-off ky thuat khi dua ra giai phap."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+          "user_answer": "Chưa có câu trả lời từ ứng viên.",
+          "feedback": "Ứng viên chưa bắt đầu phần trả lời của mình.",
+          "suggested_answer": "Nên giới thiệu họ tên, số năm kinh nghiệm (ví dụ: 3 năm với React/Vue), các dự án tiêu biểu đã tham gia và nêu rõ lý do tại sao văn hóa hoặc sản phẩm của công ty thu hút bạn."
+        }
+      ],
+      "summary": "Cuộc phỏng vấn hiện đang ở bước khởi đầu. Chưa có đủ dữ liệu để đánh giá năng lực chuyên môn cũng như kỹ năng mềm của ứng viên."
+    },
+    "createdAt": "2026-04-06T12:34:21.147Z"
+  },
+  {
+    "id": "790d0dba-a3fb-4d1d-8d1b-223cefdfd047",
+    "provider": "gemini",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+        "timestamp": "09:01"
+      }
+    ],
+    "evaluation": {
+      "score": 0,
+      "strengths": [
+        "Co the hien duoc kha nang giao tiep va trinh bay y tuong mach lac.",
+        "Tra loi dung trong tam cho mot so cau hoi ky thuat chinh.",
+        "The hien thai do hop tac va san sang hoc hoi."
+      ],
+      "weaknesses": [
+        "Can them vi du thuc te co metric de tang tinh thuyet phuc.",
+        "Nen tra loi co cau truc on dinh va ngan gon hon.",
+        "Can dao sau hon ve trade-off ky thuat khi dua ra giai phap."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí Frontend Engineer.",
+          "user_answer": "Ung vien chua tra loi cho cau hoi nay.",
+          "feedback": "Cau tra loi da the hien duoc y chinh, nhung nen bo sung them so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+          "suggested_answer": "Hay tra loi theo cau truc Situation -> Action -> Result. Neu co the, them metric cu the (vi du: giam thoi gian tai trang, tang conversion, giam bug)."
+        }
+      ],
+      "summary": "Lịch sử phỏng vấn hiện tại chỉ bao gồm câu hỏi mở đầu từ phía người phỏng vấn. Chưa có dữ liệu phản hồi từ ứng viên để chuyên gia HR có thể tiến hành phân tích và đánh giá năng lực."
+    },
+    "createdAt": "2026-04-06T12:35:45.323Z"
+  },
+  {
+    "id": "fbd3a09b-09b4-465c-af5d-80714f0b1015",
+    "provider": "gemini",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775481193762-user",
+        "role": "user",
+        "message": "em tên là Học, hiện đang là sinh viên năm 4 ngành CNTT, hiện em đang muốn tìm kiếm  cho mình vị trí thực tập sinh BA hoặc BE dev, em muốn ứng tuyển vị trí intern để tham gia và học hỏi quy trình làm việc chuyên nghiệp của doanh nghiệp, đồng thời nâng cao trải nghiệm và kiến thức của bản thân để có thể hoàn thiện mình hơn nữa",
+        "timestamp": "20:13"
+      },
+      {
+        "id": "turn-1775481199190-ai",
+        "role": "ai",
+        "message": "Trong dự án eParking, bạn đã thực hiện quy trình 'phân tích luồng nghiệp vụ thực tế' như thế nào để chuyển hóa thành các User Roles và ERD? Hãy nêu một ví dụ cụ thể về một ràng buộc nghiệp vụ (business constraint) phức tạp mà bạn đã giải quyết thành công trong thiết kế cơ sở dữ liệu của hệ thống này.",
+        "timestamp": "20:13"
+      },
+      {
+        "id": "turn-1775481529688-user",
+        "role": "user",
+        "message": "trong dự án này, em đã tìm hiểu và phân tích nhưng công việc và quy trình xử lý trong quá trình làm việc của những nhân viên bảo vệ cũng như ở phía người gửi xe, từ đó em có thể xác định được các chức năng cần thiết và các actor cần thiết. Em đã xây dựng luồng hoạt động của hệ thống dựa theo quy trình của hành động đó trong thực tế, ví dụ cụ thể nhất và em cho là phức tạp nhất là quy trình xử lý khi phương tiện tới bãi gửi xe và thanh toán chi phí sau khi rời khỏi bãi gửi, việc xây dựng luồng hoạt động cho hành động này cần đảm bảo quy trình đồng đều, rõ ràng để đảm bảo việc trừ tiền đúng theo số lần gửi cũng như dựa theo đó để tinh doanh thu của bãi gửi xe",
+        "timestamp": "20:18"
+      },
+      {
+        "id": "turn-1775481535704-ai",
+        "role": "ai",
+        "message": "Với quy trình thanh toán eParking, bạn đã thiết kế giải pháp dự phòng (fallback logic) như thế nào trong Workflow để xử lý trường hợp AI nhận diện sai biển số hoặc lỗi hệ thống camera, nhằm đảm bảo không thất thoát doanh thu và duy trì trải nghiệm người dùng?",
+        "timestamp": "20:18"
+      },
+      {
+        "id": "turn-1775481750794-user",
+        "role": "user",
+        "message": "dạ về vấn đề này, đầu tiên em muốn nói rằng hệ thống này không thay thế hoàn toàn con người mà chỉ giảm lượng nhân sự làm việc, trong những trường hợp nhận diện không thành công thì sẽ đổi từ hình thức thanh toán sang sử dụng tiền măt. Bên cạnh đó, để tránh trường hợp nhận diện sai biển số thì chúng em đã thiết lập trong hệ thống rằng thông tin biển số nào xuất hiện lặp lại nhiều nhất và có độ chính xác cao nhất thì mới lựa chọn và đưa vào hệ thống xử lý",
+        "timestamp": "20:22"
+      },
+      {
+        "id": "turn-1775481757399-ai",
+        "role": "ai",
+        "message": "Khi chuyển sang thanh toán tiền mặt do AI nhận diện sai, bạn đã thiết kế quy trình đối soát (reconciliation) và các trường dữ liệu nào trong ERD để đảm bảo Admin có thể kiểm tra tính trung thực của nhân viên và không làm sai lệch báo cáo doanh thu?",
+        "timestamp": "20:22"
+      }
+    ],
+    "evaluation": {
+      "score": 82,
+      "strengths": [
+        "Nền tảng kỹ thuật cực kỳ vững chắc (Software Engineering, AI, Database).",
+        "Tư duy giải quyết vấn đề thực tế, biết kết hợp giữa công nghệ và yếu tố con người (Human-in-the-loop).",
+        "Khả năng quan sát thực tế để xây dựng luồng nghiệp vụ (đã quan sát bảo vệ và người gửi xe).",
+        "Trình độ tiếng Anh C1 và thành tích nghiên cứu khoa học xuất sắc (VIFOTEC)."
+      ],
+      "weaknesses": [
+        "Kỹ năng diễn đạt về nghiệp vụ (Business Analysis) còn mang tính bản năng, chưa sử dụng nhiều thuật ngữ chuyên môn chuẩn hóa.",
+        "Câu trả lời về ràng buộc dữ liệu (constraints) còn chung chung, chưa đi sâu vào logic kỹ thuật cụ thể trong ERD.",
+        "Chưa thể hiện rõ sự ưu tiên giữa vai trò BA và BE (vẫn đang tìm kiếm song song cả hai)."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "em tên là Học, hiện đang là sinh viên năm 4 ngành CNTT, hiện em đang muốn tìm kiếm cho mình vị trí thực tập sinh BA hoặc BE dev, em muốn ứng tuyển vị trí intern để tham gia và học hỏi quy trình làm việc chuyên nghiệp của doanh nghiệp, đồng thời nâng cao trải nghiệm và kiến thức của bản thân để có thể hoàn thiện mình hơn nữa",
+          "feedback": "Câu trả lời trung thực nhưng hơi thiếu trọng tâm vào vai trò BA. Việc nhắc đến cả BE dev cho thấy ứng viên chưa thực sự định hướng chuyên sâu vào một con đường duy nhất.",
+          "suggested_answer": "Nên nhấn mạnh vào việc muốn tận dụng nền tảng Engineering để trở thành một Technical BA, giúp cầu nối giữa kinh doanh và kỹ thuật trở nên hiệu quả hơn."
+        },
+        {
+          "id": "review-2",
+          "question": "Trong dự án eParking, bạn đã thực hiện quy trình 'phân tích luồng nghiệp vụ thực tế' như thế nào để chuyển hóa thành các User Roles và ERD? Hãy nêu một ví dụ cụ thể về một ràng buộc nghiệp vụ (business constraint) phức tạp mà bạn đã giải quyết thành công trong thiết kế cơ sở dữ liệu của hệ thống này.",
+          "user_answer": "trong dự án này, em đã tìm hiểu và phân tích nhưng công việc và quy trình xử lý trong quá trình làm việc của những nhân viên bảo vệ cũng như ở phía người gửi xe, từ đó em có thể xác định được các chức năng cần thiết và các actor cần thiết. Em đã xây dựng luồng hoạt động của hệ thống dựa theo quy trình của hành động đó trong thực tế, ví dụ cụ thể nhất và em cho là phức tạp nhất là quy trình xử lý khi phương tiện tới bãi gửi xe và thanh toán chi phí sau khi rời khỏi bãi gửi, việc xây dựng luồng hoạt động cho hành động này cần đảm bảo quy trình đồng đều, rõ ràng để đảm bảo việc trừ tiền đúng theo số lần gửi cũng như dựa theo đó để tinh doanh thu của bãi gửi xe",
+          "feedback": "Ứng viên có tư duy quan sát thực tế tốt. Tuy nhiên, phần trả lời về 'ràng buộc nghiệp vụ phức tạp' còn khá mơ hồ, chưa nêu rõ được các quy tắc dữ liệu (ví dụ: xử lý xe vào/ra nhiều lần trong ngày, tính giá theo block giờ, hay ràng buộc duy nhất của biển số).",
+          "suggested_answer": "Nên mô tả cụ thể một Business Rule, ví dụ: 'Một xe không thể có trạng thái 'vào' nếu chưa có trạng thái 'ra' trước đó' và cách thiết lập Trigger hoặc Constraint trong PostgreSQL để đảm bảo tính toàn vẹn dữ liệu."
+        },
+        {
+          "id": "review-3",
+          "question": "Với quy trình thanh toán eParking, bạn đã thiết kế giải pháp dự phòng (fallback logic) như thế nào trong Workflow để xử lý trường hợp AI nhận diện sai biển số hoặc lỗi hệ thống camera, nhằm đảm bảo không thất thoát doanh thu và duy trì trải nghiệm người dùng?",
+          "user_answer": "dạ về vấn đề này, đầu tiên em muốn nói rằng hệ thống này không thay thế hoàn toàn con người mà chỉ giảm lượng nhân sự làm việc, trong những trường hợp nhận diện không thành công thì sẽ đổi từ hình thức thanh toán sang sử dụng tiền măt. Bên cạnh đó, để tránh trường hợp nhận diện sai biển số thì chúng em đã thiết lập trong hệ thống rằng thông tin biển số nào xuất hiện lặp lại nhiều nhất và có độ chính xác cao nhất thì mới lựa chọn và đưa vào hệ thống xử lý",
+          "feedback": "Giải pháp thực tế và hợp lý. Việc sử dụng thuật toán chọn kết quả có độ tin cậy cao nhất (confidence score) cho thấy tư duy của một kỹ sư hệ thống tốt.",
+          "suggested_answer": "Có thể bổ sung thêm việc thiết kế giao diện cho phép nhân viên bảo vệ chỉnh sửa biển số thủ công ngay tại chỗ (Manual Override) và ghi log lại các trường hợp này để hậu kiểm."
+        },
+        {
+          "id": "review-4",
+          "question": "Khi chuyển sang thanh toán tiền mặt do AI nhận diện sai, bạn đã thiết kế quy trình đối soát (reconciliation) và các trường dữ liệu nào trong ERD để đảm bảo Admin có thể kiểm tra tính trung thực của nhân viên và không làm sai lệch báo cáo doanh thu?",
+          "user_answer": "Không có dữ liệu trả lời.",
+          "feedback": "Ứng viên chưa trả lời câu hỏi này trong lịch sử phỏng vấn. Đây là câu hỏi quan trọng để đánh giá tư duy về quản lý rủi ro và tính toàn vẹn tài chính trong vai trò BA.",
+          "suggested_answer": "Cần đề cập đến các trường dữ liệu như: payment_method (Cash/E-wallet), is_ai_corrected (Boolean), cashier_id, và ảnh chụp thực tế đính kèm mỗi giao dịch để đối soát."
+        }
+      ],
+      "summary": "Trieu Quang Hoc là một ứng viên 'Technical BA' tiềm năng với nền tảng kỹ thuật xuất sắc và tư duy hệ thống thực tế. Điểm mạnh lớn nhất là khả năng hiểu sâu về công nghệ (AI, Database) để giải quyết các bài toán nghiệp vụ. Tuy nhiên, ứng viên cần rèn luyện thêm về cách diễn đạt theo ngôn ngữ BA chuyên nghiệp và tập trung sâu hơn vào các quy tắc nghiệp vụ (Business Rules) cũng như quản trị rủi ro hệ thống. Đây là lựa chọn rất tốt cho các dự án cần BA có khả năng đọc hiểu code và thiết kế hệ thống phức tạp."
+    },
+    "createdAt": "2026-04-06T13:23:29.509Z"
   }
 ]

@@ -9,25 +9,21 @@ type AnalysisState = "idle" | "analyzing" | "ready";
 
 export function DropZone() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const analysisTimeoutRef = useRef<number | null>(null);
+  const analysisRequestIdRef = useRef(0);
   const [selectedFile, setSelectedFile] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
   const [analysisState, setAnalysisState] = useState<AnalysisState>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [analysisNote, setAnalysisNote] = useState<string>("");
+  const [cvText, setCvText] = useState("");
   const [candidateName, setCandidateName] = useState("");
-  const [targetRole, setTargetRole] = useState("Frontend Engineer");
+  const [targetRole, setTargetRole] = useState("");
   const [highlights, setHighlights] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.workflowStep, "cv-upload");
     }
-
-    return () => {
-      if (analysisTimeoutRef.current) {
-        window.clearTimeout(analysisTimeoutRef.current);
-      }
-    };
   }, []);
 
   const buildCandidateNameFromFile = (fileName: string) => {
@@ -40,7 +36,40 @@ export function DropZone() {
     return cleaned || "Ứng viên";
   };
 
-  const handleFile = (file: File | undefined) => {
+  const extractPdfText = async (file: File): Promise<string> => {
+    const pdfJs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+    const buffer = await file.arrayBuffer();
+
+    if (!pdfJs.GlobalWorkerOptions.workerSrc) {
+      pdfJs.GlobalWorkerOptions.workerSrc =
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist/legacy/build/pdf.worker.min.mjs";
+    }
+
+    const loadingTask = pdfJs.getDocument({
+      data: new Uint8Array(buffer),
+    });
+
+    const pdfDocument = await loadingTask.promise;
+    const maxPages = Math.min(pdfDocument.numPages, 12);
+    let combined = "";
+
+    for (let pageNumber = 1; pageNumber <= maxPages; pageNumber += 1) {
+      const page = await pdfDocument.getPage(pageNumber);
+      const textContent = await page.getTextContent();
+      const pageText = (textContent.items as Array<{ str?: string }>)
+        .map((item) => (typeof item.str === "string" ? item.str : ""))
+        .join(" ")
+        .trim();
+
+      if (pageText) {
+        combined += `${pageText}\n`;
+      }
+    }
+
+    return combined.replace(/\s+/g, " ").trim();
+  };
+
+  const handleFile = async (file: File | undefined) => {
     if (!file) return;
 
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
@@ -51,35 +80,67 @@ export function DropZone() {
     }
 
     setErrorMessage("");
+    setAnalysisNote("");
     setSelectedFile(file.name);
     setCandidateName((current) => current || buildCandidateNameFromFile(file.name));
     setAnalysisState("analyzing");
+
+    const requestId = Date.now();
+    analysisRequestIdRef.current = requestId;
 
     if (typeof window !== "undefined") {
       window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.transcript);
       window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.transcriptJson);
       window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.evaluation);
       window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.evaluationId);
+      window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.cvText);
+      window.sessionStorage.removeItem(INTERVIEW_STORAGE_KEYS.cvEvaluation);
       window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.status, "IN_PROGRESS");
     }
 
-    if (analysisTimeoutRef.current) {
-      window.clearTimeout(analysisTimeoutRef.current);
-    }
+    try {
+      const extractedText = await extractPdfText(file);
 
-    analysisTimeoutRef.current = window.setTimeout(() => {
+      if (analysisRequestIdRef.current !== requestId) {
+        return;
+      }
+
+      setCvText(extractedText);
+
+      if (typeof window !== "undefined") {
+        window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.cvText, extractedText);
+      }
+
+      if (!extractedText || extractedText.length < 60) {
+        setAnalysisNote(
+          "Không trích xuất được nhiều nội dung từ PDF. Bạn có thể bổ sung thêm điểm nhấn CV để đánh giá chính xác hơn.",
+        );
+      } else {
+        setAnalysisNote("Đã trích xuất thành công nội dung CV để phục vụ đánh giá và phỏng vấn.");
+      }
+
       setAnalysisState("ready");
-    }, 2200);
+    } catch {
+      if (analysisRequestIdRef.current !== requestId) {
+        return;
+      }
+
+      setCvText("");
+      setAnalysisState("ready");
+      setAnalysisNote(
+        "Không thể phân tích sâu nội dung PDF trên trình duyệt. Hệ thống sẽ dùng thông tin hồ sơ bạn nhập để đánh giá.",
+      );
+    }
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    handleFile(event.target.files?.[0]);
+    void handleFile(event.target.files?.[0]);
   };
 
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(false);
-    handleFile(event.dataTransfer.files?.[0]);
+    void handleFile(event.dataTransfer.files?.[0]);
   };
 
   const persistCandidateProfile = () => {
@@ -89,7 +150,7 @@ export function DropZone() {
 
     const profile = {
       candidateName: candidateName.trim() || "Ứng viên",
-      targetRole: targetRole.trim() || "Frontend Engineer",
+      targetRole: targetRole.trim() || "Vị trí ứng tuyển",
       cvFileName: selectedFile,
       highlights: highlights.trim(),
     };
@@ -98,6 +159,7 @@ export function DropZone() {
       INTERVIEW_STORAGE_KEYS.candidateProfile,
       JSON.stringify(profile),
     );
+    window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.cvText, cvText);
     window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.workflowStep, "cv-evaluation");
   };
 
@@ -207,6 +269,12 @@ export function DropZone() {
             <div className="mt-5 inline-flex items-center gap-3 rounded-full border border-sky-200 bg-sky-50 px-5 py-3 text-sm font-medium text-sky-700">
               <Loader2 className="h-4 w-4 animate-spin" />
               Đang phân tích CV...
+            </div>
+          ) : null}
+
+          {analysisState === "ready" && analysisNote ? (
+            <div className="mt-4 rounded-xl border border-sky-100 bg-sky-50/80 px-3 py-2 text-left text-xs leading-relaxed text-sky-700">
+              {analysisNote}
             </div>
           ) : null}
 

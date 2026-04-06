@@ -31,6 +31,9 @@ export interface InterviewEvaluationResult {
 
 export interface EvaluateInterviewRequest {
   transcript: InterviewTurn[] | string;
+  profile?: InterviewCandidateProfile;
+  cvText?: string;
+  cvEvaluationSummary?: string;
 }
 
 export interface EvaluateInterviewResponse {
@@ -53,6 +56,7 @@ export interface InterviewChatRequest {
   transcript: InterviewTurn[] | string;
   language?: "vi" | "en";
   profile?: InterviewCandidateProfile;
+  cvContext?: string;
 }
 
 export interface InterviewChatResponse {
@@ -60,4 +64,26 @@ export interface InterviewChatResponse {
   provider: AIProvider;
   message: InterviewTurn;
   generatedAt: string;
+}
+
+export interface CvEvaluationResult {
+  score: number;
+  strengths: string[];
+  weaknesses: string[];
+  role_alignment: string[];
+  interview_focus: string[];
+  summary: string;
+}
+
+export interface EvaluateCvRequest {
+  profile?: InterviewCandidateProfile;
+  cvText?: string;
+  language?: "vi" | "en";
+}
+
+export interface EvaluateCvResponse {
+  status: "ok";
+  provider: AIProvider;
+  evaluation: CvEvaluationResult;
+  evaluatedAt: string;
 }

@@ -4,6 +4,7 @@ import { saveInterviewEvaluationRecord } from "@/lib/interview/evaluation-reposi
 import type {
   EvaluateInterviewRequest,
   EvaluateInterviewResponse,
+  InterviewCandidateProfile,
   InterviewTurn,
 } from "@/lib/interview/types";
 
@@ -64,6 +65,32 @@ function parseTranscriptInput(input: unknown): InterviewTurn[] {
     .filter((item): item is InterviewTurn => item !== null);
 }
 
+function parseCandidateProfile(input: unknown): InterviewCandidateProfile | undefined {
+  if (!input || typeof input !== "object") {
+    return undefined;
+  }
+
+  const record = input as Record<string, unknown>;
+  const candidateName =
+    typeof record.candidateName === "string" ? record.candidateName.trim() : "";
+  const targetRole =
+    typeof record.targetRole === "string" ? record.targetRole.trim() : "";
+  const cvFileName =
+    typeof record.cvFileName === "string" ? record.cvFileName.trim() : "";
+
+  if (!candidateName && !targetRole && !cvFileName) {
+    return undefined;
+  }
+
+  return {
+    candidateName: candidateName || "Ung vien",
+    targetRole: targetRole || "Vi tri ung tuyen",
+    cvFileName: cvFileName || "resume.pdf",
+    highlights:
+      typeof record.highlights === "string" ? record.highlights.trim() : undefined,
+  };
+}
+
 export async function POST(request: NextRequest) {
   let body: EvaluateInterviewRequest;
 
@@ -88,7 +115,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const result = await evaluateInterviewTranscript(transcript);
+  const profile = parseCandidateProfile(body.profile);
+  const cvText = typeof body.cvText === "string" ? body.cvText : "";
+  const cvEvaluationSummary =
+    typeof body.cvEvaluationSummary === "string" ? body.cvEvaluationSummary : "";
+
+  const result = await evaluateInterviewTranscript(transcript, {
+    profile,
+    cvText,
+    cvEvaluationSummary,
+  });
   const savedRecord = await saveInterviewEvaluationRecord({
     provider: result.provider,
     transcript,

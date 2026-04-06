@@ -83,7 +83,7 @@ function parseCandidateProfile(input: unknown): InterviewCandidateProfile | unde
 
   return {
     candidateName: candidateName || "Ứng viên",
-    targetRole: targetRole || "Frontend Engineer",
+    targetRole: targetRole || "Vị trí ứng tuyển",
     cvFileName: cvFileName || "resume.pdf",
     highlights:
       typeof record.highlights === "string" ? record.highlights.trim() : undefined,
@@ -115,8 +115,14 @@ export async function POST(request: NextRequest) {
 
   const language = body.language === "en" ? "en" : "vi";
   const profile = parseCandidateProfile(body.profile);
+  const cvContext = typeof body.cvContext === "string" ? body.cvContext : "";
 
-  const generated = await generateInterviewQuestion(transcript, language, profile);
+  const generated = await generateInterviewQuestion(
+    transcript,
+    language,
+    profile,
+    cvContext,
+  );
 
   const now = new Date();
   const message: InterviewTurn = {

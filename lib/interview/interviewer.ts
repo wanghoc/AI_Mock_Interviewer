@@ -29,22 +29,6 @@ interface InterviewerResult {
   nextQuestion: string;
 }
 
-const FALLBACK_QUESTIONS_VI = [
-  "Bạn đã từng xử lý một sự cố production nào nghiêm trọng nhất và cách bạn phối hợp với team ra sao?",
-  "Khi phải trade-off giữa tốc độ phát triển và chất lượng code, bạn thường đưa ra quyết định như thế nào?",
-  "Nếu cần cải thiện Core Web Vitals cho một trang có traffic lớn, bạn sẽ bắt đầu từ đâu?",
-  "Bạn hãy kể một ví dụ về việc bạn phản biện yêu cầu sản phẩm và đề xuất giải pháp tốt hơn.",
-  "Trong 90 ngày đầu nếu nhận việc, bạn sẽ ưu tiên những mục tiêu kỹ thuật nào?",
-];
-
-const FALLBACK_QUESTIONS_EN = [
-  "Tell me about the most critical production incident you handled and how you coordinated with your team.",
-  "How do you decide when there is a trade-off between delivery speed and code quality?",
-  "If you had to improve Core Web Vitals for a high-traffic page, where would you start?",
-  "Give me an example of when you challenged a product requirement and proposed a better alternative.",
-  "In your first 90 days, what technical priorities would you focus on?",
-];
-
 function stripCodeFence(input: string): string {
   const trimmed = input.trim();
 
@@ -78,33 +62,49 @@ function normalizeQuestion(rawValue: unknown, language: "vi" | "en"): string {
   }
 
   if (language === "vi") {
-    return "Bạn hãy chia sẻ thêm một ví dụ thực tế gần đây nhất để làm rõ phong cách làm việc của bạn.";
+    return "Bạn hãy chia sẻ một ví dụ thực tế gần đây để làm rõ phong cách làm việc và kết quả bạn tạo ra.";
   }
 
-  return "Please share one more recent real-world example to clarify your working style.";
+  return "Please share a recent real-world example that shows your working style and impact.";
 }
 
-function buildSystemPrompt(language: "vi" | "en"): string {
+function buildSystemPrompt(
+  language: "vi" | "en",
+  profile?: InterviewCandidateProfile,
+  cvContext?: string,
+): string {
+  const role = profile?.targetRole?.trim() || "vị trí ứng tuyển";
+  const candidateName = profile?.candidateName?.trim() || "ứng viên";
+  const highlights = profile?.highlights?.trim();
+  const cvHint = cvContext?.trim().slice(0, 1200) ?? "";
+
   if (language === "vi") {
     return [
-      "Bạn là một Senior Technical Interviewer chuyên phỏng vấn Frontend Engineer.",
-      "Nhiệm vụ: dựa trên lịch sử hội thoại, đặt đúng 1 câu hỏi tiếp theo.",
-      "Không trả lời dài dòng, không chấm điểm ở bước này.",
-      "Mức độ chuyên nghiệp, ngắn gọn, sắc bén.",
-      "BẮT BUỘC trả về JSON hợp lệ duy nhất:",
+      `Bạn là Senior Technical Interviewer đang phỏng vấn ${candidateName} cho vị trí ${role}.`,
+      "Nhiệm vụ: dựa trên lịch sử hội thoại để đặt đúng 1 câu hỏi tiếp theo, ngắn gọn và sắc bén.",
+      "Bắt buộc cân bằng nội dung:",
+      "- Khoảng 30-40% câu hỏi khai thác CV hoặc thành tựu đã nêu.",
+      "- Phần còn lại là câu hỏi tình huống/chuyên môn theo đúng vị trí ứng tuyển.",
+      "- Nếu ứng viên trả lời chung chung, phải hỏi đào sâu bằng ví dụ/metric.",
+      highlights
+        ? `Thông tin nổi bật từ CV/profile: ${highlights}`
+        : "Nếu thiếu thông tin CV, hãy đặt câu hỏi để bổ sung dữ kiện thực tế.",
+      cvHint
+        ? `Trích đoạn CV để tham chiếu (không cần nhắc lại nguyên văn): ${cvHint}`
+        : "Không có trích đoạn CV đầy đủ, chỉ dùng profile và transcript hiện có.",
+      "Trả về DUY NHẤT JSON hợp lệ:",
       '{ "next_question": "..." }',
-      "Câu hỏi mới không được trùng hệt câu trước.",
-      "Nếu ứng viên trả lời mơ hồ, hãy đặt câu hỏi đào sâu có ví dụ/metric.",
+      "Không trả lời thêm mô tả, không markdown, không code block.",
     ].join("\n");
   }
 
   return [
-    "You are a senior technical interviewer for frontend roles.",
-    "Based on the transcript, ask exactly one next interview question.",
-    "Be concise and professional.",
-    "Return only valid JSON:",
+    `You are a senior technical interviewer interviewing ${candidateName} for ${role}.`,
+    "Ask exactly one concise next question based on transcript context.",
+    "Balance questions: 30-40% CV-driven probes, remaining role-specific technical/situational probes.",
+    "If the answer is vague, ask for concrete examples and measurable outcomes.",
+    "Return ONLY valid JSON:",
     '{ "next_question": "..." }',
-    "Avoid repeating the exact same question.",
   ].join("\n");
 }
 
@@ -112,27 +112,46 @@ function buildUserContent(
   transcript: InterviewTurn[],
   language: "vi" | "en",
   profile?: InterviewCandidateProfile,
+  cvContext?: string,
 ) {
   return JSON.stringify({
     language,
     profile,
+    cv_context_excerpt: cvContext?.slice(0, 14000) ?? "",
     transcript,
   });
 }
 
-function getFallbackQuestion(
+function getRoleAwareFallbackQuestion(
   transcript: InterviewTurn[],
   language: "vi" | "en",
+  profile?: InterviewCandidateProfile,
+  cvContext?: string,
 ): string {
+  const role = profile?.targetRole?.trim() || "vị trí ứng tuyển";
+  const hasCvContext = Boolean(cvContext?.trim() || profile?.highlights?.trim());
   const aiCount = transcript.filter((item) => item.role === "ai").length;
-  const pool = language === "vi" ? FALLBACK_QUESTIONS_VI : FALLBACK_QUESTIONS_EN;
-  return pool[aiCount % pool.length];
+
+  if (language === "en") {
+    if (hasCvContext && aiCount % 3 === 0) {
+      return `Based on your CV, which project best demonstrates your fit for the ${role} role, and what measurable impact did you deliver?`;
+    }
+
+    return `For the ${role} role, describe a difficult technical decision you made and how you validated the outcome.`;
+  }
+
+  if (hasCvContext && aiCount % 3 === 0) {
+    return `Dựa trên CV của bạn, dự án nào thể hiện rõ nhất sự phù hợp với vị trí ${role}, và kết quả định lượng bạn đạt được là gì?`;
+  }
+
+  return `Với vị trí ${role}, bạn hãy mô tả một quyết định kỹ thuật khó mà bạn từng đưa ra và cách bạn kiểm chứng hiệu quả của quyết định đó.`;
 }
 
 async function callOpenAI(
   transcript: InterviewTurn[],
   language: "vi" | "en",
   profile?: InterviewCandidateProfile,
+  cvContext?: string,
 ): Promise<InterviewerResult | null> {
   const apiKey = process.env.OPENAI_API_KEY;
 
@@ -150,16 +169,16 @@ async function callOpenAI(
     },
     body: JSON.stringify({
       model,
-      temperature: 0.3,
+      temperature: 0.35,
       response_format: { type: "json_object" },
       messages: [
         {
           role: "system",
-          content: buildSystemPrompt(language),
+          content: buildSystemPrompt(language, profile, cvContext),
         },
         {
           role: "user",
-          content: buildUserContent(transcript, language, profile),
+          content: buildUserContent(transcript, language, profile, cvContext),
         },
       ],
     }),
@@ -176,11 +195,9 @@ async function callOpenAI(
     throw new Error("OpenAI chat returned empty content.");
   }
 
-  const parsed = safeJsonParse(content);
-
   return {
     provider: "openai",
-    nextQuestion: normalizeQuestion(parsed, language),
+    nextQuestion: normalizeQuestion(safeJsonParse(content), language),
   };
 }
 
@@ -203,6 +220,7 @@ async function callGemini(
   transcript: InterviewTurn[],
   language: "vi" | "en",
   profile?: InterviewCandidateProfile,
+  cvContext?: string,
 ): Promise<InterviewerResult | null> {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -222,10 +240,10 @@ async function callGemini(
       },
       body: JSON.stringify({
         systemInstruction: {
-          parts: [{ text: buildSystemPrompt(language) }],
+          parts: [{ text: buildSystemPrompt(language, profile, cvContext) }],
         },
         generationConfig: {
-          temperature: 0.3,
+          temperature: 0.35,
           responseMimeType: "application/json",
         },
         contents: [
@@ -233,7 +251,7 @@ async function callGemini(
             role: "user",
             parts: [
               {
-                text: buildUserContent(transcript, language, profile),
+                text: buildUserContent(transcript, language, profile, cvContext),
               },
             ],
           },
@@ -259,11 +277,9 @@ async function callGemini(
       throw new Error("Gemini chat returned empty content.");
     }
 
-    const parsed = safeJsonParse(content);
-
     return {
       provider: "gemini",
-      nextQuestion: normalizeQuestion(parsed, language),
+      nextQuestion: normalizeQuestion(safeJsonParse(content), language),
     };
   }
 
@@ -274,9 +290,10 @@ export async function generateInterviewQuestion(
   transcript: InterviewTurn[],
   language: "vi" | "en" = "vi",
   profile?: InterviewCandidateProfile,
+  cvContext?: string,
 ): Promise<InterviewerResult> {
   try {
-    const openAIResult = await callOpenAI(transcript, language, profile);
+    const openAIResult = await callOpenAI(transcript, language, profile, cvContext);
     if (openAIResult) {
       return openAIResult;
     }
@@ -285,7 +302,7 @@ export async function generateInterviewQuestion(
   }
 
   try {
-    const geminiResult = await callGemini(transcript, language, profile);
+    const geminiResult = await callGemini(transcript, language, profile, cvContext);
     if (geminiResult) {
       return geminiResult;
     }
@@ -295,6 +312,11 @@ export async function generateInterviewQuestion(
 
   return {
     provider: "fallback",
-    nextQuestion: getFallbackQuestion(transcript, language),
+    nextQuestion: getRoleAwareFallbackQuestion(
+      transcript,
+      language,
+      profile,
+      cvContext,
+    ),
   };
 }

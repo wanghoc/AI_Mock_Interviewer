@@ -1,6 +1,7 @@
 import "server-only";
 
 import type {
+  InterviewCandidateProfile,
   InterviewDetailedReviewItem,
   InterviewEvaluationResult,
   InterviewTurn,
@@ -37,27 +38,81 @@ interface QuestionAnswerPair {
   userAnswer: string;
 }
 
-const SYSTEM_PROMPT = [
-  "Ban la mot chuyen gia HR cap cao.",
-  "Hay doc lich su phong van va danh gia nang luc ung vien.",
-  "Chi duoc tra ve DUY NHAT mot JSON hop le, khong them giai thich.",
-  "JSON phai theo dung schema:",
-  "{",
-  '  "score": number (0-100),',
-  '  "strengths": string[],',
-  '  "weaknesses": string[],',
-  '  "detailed_review": [',
-  "    {",
-  '      "question": string,',
-  '      "user_answer": string,',
-  '      "feedback": string,',
-  '      "suggested_answer": string',
-  "    }",
-  "  ],",
-  '  "summary": string',
-  "}",
-  "Danh gia can cu the, can bang va mang tinh huan luyen.",
-].join("\n");
+interface EvaluationContext {
+  profile?: InterviewCandidateProfile;
+  cvText?: string;
+  cvEvaluationSummary?: string;
+}
+
+const UNANSWERED_TEXT = "Ung vien chua tra loi cho cau hoi nay.";
+
+function buildSystemPrompt(context: EvaluationContext): string {
+  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const candidateName = context.profile?.candidateName?.trim() || "ung vien";
+  const highlights = context.profile?.highlights?.trim();
+  const cvExcerpt = context.cvText?.trim().slice(0, 1400) ?? "";
+  const cvEvaluationSummary = context.cvEvaluationSummary?.trim().slice(0, 900) ?? "";
+
+  return [
+    `Ban la chuyen gia HR cap cao dang danh gia ${candidateName} cho vai tro ${role}.`,
+    "Hay doc lich su phong van va danh gia nang luc ung vien.",
+    "Bat buoc can bang giua chat luong cau tra loi, muc do phu hop vai tro, va do khop voi thong tin CV.",
+    "Neu cau tra loi khong co du lieu, feedback phai noi ro ly do thay vi suy dien.",
+    highlights
+      ? `Thong tin noi bat tu profile: ${highlights}`
+      : "Neu profile thieu du lieu, hay note ro rang gioi han danh gia.",
+    cvExcerpt
+      ? `Trich doan CV de tham chieu: ${cvExcerpt}`
+      : "Khong co trich doan CV day du, chi danh gia tren transcript va profile.",
+    cvEvaluationSummary
+      ? `Tom tat danh gia CV truoc do: ${cvEvaluationSummary}`
+      : "Chua co tong ket CV truoc do.",
+    "Chi duoc tra ve DUY NHAT mot JSON hop le, khong them giai thich.",
+    "JSON phai theo dung schema:",
+    "{",
+    '  "score": number (0-100),',
+    '  "strengths": string[],',
+    '  "weaknesses": string[],',
+    '  "detailed_review": [',
+    "    {",
+    '      "question": string,',
+    '      "user_answer": string,',
+    '      "feedback": string,',
+    '      "suggested_answer": string',
+    "    }",
+    "  ],",
+    '  "summary": string',
+    "}",
+  ].join("\n");
+}
+
+function buildUserPayload(
+  transcript: InterviewTurn[],
+  context: EvaluationContext,
+): string {
+  return JSON.stringify({
+    profile: context.profile,
+    cv_text_excerpt: context.cvText?.slice(0, 14000) ?? "",
+    cv_evaluation_summary: context.cvEvaluationSummary ?? "",
+    transcript,
+  });
+}
+
+function hasAnyUserAnswer(transcript: InterviewTurn[]): boolean {
+  return transcript.some(
+    (item) => item.role === "user" && item.message.trim().length > 0,
+  );
+}
+
+function isUnansweredText(input: string): boolean {
+  const normalized = input.toLowerCase().trim();
+
+  return (
+    normalized.length === 0 ||
+    normalized.includes("chua tra loi") ||
+    normalized.includes("khong tra loi")
+  );
+}
 
 function clampScore(rawScore: unknown): number {
   if (typeof rawScore !== "number" || Number.isNaN(rawScore)) {
@@ -120,7 +175,7 @@ function extractQuestionAnswerPairs(transcript: InterviewTurn[]): QuestionAnswer
       continue;
     }
 
-    let userAnswer = "Ung vien chua tra loi cho cau hoi nay.";
+    let userAnswer = UNANSWERED_TEXT;
 
     for (let nextIndex = index + 1; nextIndex < transcript.length; nextIndex += 1) {
       const nextTurn = transcript[nextIndex];
@@ -147,24 +202,30 @@ function extractQuestionAnswerPairs(transcript: InterviewTurn[]): QuestionAnswer
 
 function fallbackDetailedReview(
   pairs: QuestionAnswerPair[],
+  context: EvaluationContext,
 ): InterviewDetailedReviewItem[] {
+  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+
   return pairs.map((pair) => ({
     id: pair.id,
     question: pair.question,
     user_answer: pair.userAnswer,
-    feedback:
-      "Cau tra loi da the hien duoc y chinh, nhung nen bo sung them so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
-    suggested_answer:
-      "Hay tra loi theo cau truc Situation -> Action -> Result. Neu co the, them metric cu the (vi du: giam thoi gian tai trang, tang conversion, giam bug).",
+    feedback: isUnansweredText(pair.userAnswer)
+      ? "Ung vien chua dua ra cau tra loi cho cau hoi nay, nen chua co du lieu de danh gia nang luc."
+      : "Cau tra loi da co y chinh, nhung nen bo sung so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+    suggested_answer: isUnansweredText(pair.userAnswer)
+      ? `Nen tra loi ngan gon theo cau truc Situation -> Action -> Result lien quan den vai tro ${role}.`
+      : "Hay tra loi theo cau truc Situation -> Action -> Result va bo sung metric do luong ket qua.",
   }));
 }
 
 function normalizeDetailedReview(
   rawValue: unknown,
   pairs: QuestionAnswerPair[],
+  context: EvaluationContext,
 ): InterviewDetailedReviewItem[] {
   if (!Array.isArray(rawValue)) {
-    return fallbackDetailedReview(pairs);
+    return fallbackDetailedReview(pairs, context);
   }
 
   const normalized = rawValue
@@ -185,7 +246,7 @@ function normalizeDetailedReview(
         typeof entry.user_answer === "string" &&
         entry.user_answer.trim().length > 0
           ? entry.user_answer.trim()
-          : pair?.userAnswer ?? "Ung vien chua tra loi.";
+          : pair?.userAnswer ?? UNANSWERED_TEXT;
 
       const feedback =
         typeof entry.feedback === "string" && entry.feedback.trim().length > 0
@@ -198,6 +259,18 @@ function normalizeDetailedReview(
           ? entry.suggested_answer.trim()
           : "Hay tra loi theo cau truc ro rang va co so lieu do luong ket qua.";
 
+      if (isUnansweredText(userAnswer)) {
+        return {
+          id: `review-${index + 1}`,
+          question,
+          user_answer: UNANSWERED_TEXT,
+          feedback:
+            "Ung vien chua tra loi cau hoi nay, vi vay chua the phan tich diem manh/yeu cho muc nay.",
+          suggested_answer:
+            "Can bo sung cau tra loi thuc te voi boi canh, hanh dong va ket qua do luong duoc.",
+        };
+      }
+
       return {
         id: `review-${index + 1}`,
         question,
@@ -209,44 +282,90 @@ function normalizeDetailedReview(
     .filter((item): item is InterviewDetailedReviewItem => item !== null);
 
   if (normalized.length === 0) {
-    return fallbackDetailedReview(pairs);
+    return fallbackDetailedReview(pairs, context);
   }
 
   return normalized;
 }
 
+function createNoAnswerEvaluation(
+  transcript: InterviewTurn[],
+  context: EvaluationContext,
+): InterviewEvaluationResult {
+  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const pairs = extractQuestionAnswerPairs(transcript);
+
+  return {
+    score: 0,
+    strengths: [
+      "Ung vien chua tra loi cau hoi nao, nen chua co du lieu xac nhan diem manh.",
+      `Buoi phong van cho vai tro ${role} can duoc thuc hien lai de thu thap du lieu danh gia.`,
+    ],
+    weaknesses: [
+      "Ung vien chua cung cap cau tra loi, nen khong the danh gia nang luc thuc te.",
+      "Chua co du lieu de phan tich kinh nghiem, cach tu duy va ky nang giai quyet van de.",
+    ],
+    detailed_review: pairs.map((pair, index) => ({
+      id: `review-${index + 1}`,
+      question: pair.question,
+      user_answer: UNANSWERED_TEXT,
+      feedback:
+        "Ung vien chua tra loi cau hoi nay, nen chua the dua ra nhan xet chuyen mon.",
+      suggested_answer:
+        "Can tra loi day du de he thong va nha tuyen dung co co so danh gia.",
+    })),
+    summary:
+      "Ung vien chua tra loi trong buoi phong van. He thong khong du du lieu de danh gia nang luc.",
+  };
+}
+
 function normalizeEvaluation(
   rawValue: unknown,
   transcript: InterviewTurn[],
+  context: EvaluationContext,
 ): InterviewEvaluationResult {
   const pairs = extractQuestionAnswerPairs(transcript);
+  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const hasCvSignal = Boolean(
+    context.profile?.highlights?.trim() ||
+      context.cvText?.trim() ||
+      context.cvEvaluationSummary?.trim(),
+  );
+
+  if (!hasAnyUserAnswer(transcript)) {
+    return createNoAnswerEvaluation(transcript, context);
+  }
 
   if (!rawValue || typeof rawValue !== "object") {
-    return createFallbackEvaluation(transcript);
+    return createFallbackEvaluation(transcript, context);
   }
 
   const record = rawValue as Record<string, unknown>;
 
   const strengthsFallback = [
-    "Co the hien duoc kha nang giao tiep va trinh bay y tuong mach lac.",
-    "Tra loi dung trong tam cho mot so cau hoi ky thuat chinh.",
-    "The hien thai do hop tac va san sang hoc hoi.",
+    `Ung vien da co cau tra loi lien quan vai tro ${role}.`,
+    "Co the hien duoc kha nang giao tiep va trinh bay y tuong co cau truc.",
+    hasCvSignal
+      ? "Noi dung tra loi co mot phan lien ket voi thong tin trong CV/profile."
+      : "Ung vien da tham gia trao doi va the hien thai do hop tac.",
   ];
 
   const weaknessesFallback = [
     "Can them vi du thuc te co metric de tang tinh thuyet phuc.",
     "Nen tra loi co cau truc on dinh va ngan gon hon.",
-    "Can dao sau hon ve trade-off ky thuat khi dua ra giai phap.",
+    hasCvSignal
+      ? "Can lien ket ro hon giua kinh nghiem trong CV va cau tra loi phong van."
+      : "Can dao sau hon ve trade-off ky thuat khi dua ra giai phap.",
   ];
 
   const summaryFallback =
-    "Ung vien co tiem nang va nen tiep tuc cai thien cach dien dat theo huong co cau truc, co metric va co bai hoc rut ra.";
+    `Ung vien co tiem nang cho vai tro ${role}, can cai thien cach dien dat co metric va lien ket ro hon voi kinh nghiem da neu.`;
 
   return {
     score: clampScore(record.score),
     strengths: normalizeStringArray(record.strengths, strengthsFallback, 2),
     weaknesses: normalizeStringArray(record.weaknesses, weaknessesFallback, 2),
-    detailed_review: normalizeDetailedReview(record.detailed_review, pairs),
+    detailed_review: normalizeDetailedReview(record.detailed_review, pairs, context),
     summary:
       typeof record.summary === "string" && record.summary.trim().length > 0
         ? record.summary.trim()
@@ -254,7 +373,15 @@ function normalizeEvaluation(
   };
 }
 
-function createFallbackEvaluation(transcript: InterviewTurn[]): InterviewEvaluationResult {
+function createFallbackEvaluation(
+  transcript: InterviewTurn[],
+  context: EvaluationContext,
+): InterviewEvaluationResult {
+  if (!hasAnyUserAnswer(transcript)) {
+    return createNoAnswerEvaluation(transcript, context);
+  }
+
+  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
   const userAnswers = transcript.filter((item) => item.role === "user");
   const answerCount = userAnswers.length;
   const averageLength =
@@ -272,19 +399,20 @@ function createFallbackEvaluation(transcript: InterviewTurn[]): InterviewEvaluat
 
   const detailedReview = fallbackDetailedReview(
     extractQuestionAnswerPairs(transcript),
+    context,
   );
 
   return {
     score,
     strengths: [
-      "Ung vien da tham gia day du luong hoi dap va bam sat chu de.",
-      "Co the hien duoc kinh nghiem lien quan den vi tri dang ung tuyen.",
+      "Ung vien da tham gia luong hoi dap va bam sat chu de phong van.",
+      `Co the hien duoc kinh nghiem lien quan den vai tro ${role}.`,
       "Giong van phong va thai do tra loi mang tinh hop tac.",
     ],
     weaknesses: [
       "Can bo sung so lieu ket qua de tang do tin cay cho tung vi du.",
       "Can dao sau hon vao trade-off va cach ra quyet dinh ky thuat.",
-      "Nen ket thuc cau tra loi bang bai hoc hoac tac dong kinh doanh ro rang.",
+      "Nen ket thuc cau tra loi bang bai hoc hoac tac dong kinh doanh ro rang hon.",
     ],
     detailed_review: detailedReview,
     summary:
@@ -292,7 +420,10 @@ function createFallbackEvaluation(transcript: InterviewTurn[]): InterviewEvaluat
   };
 }
 
-async function callOpenAI(transcript: InterviewTurn[]): Promise<ProviderResult | null> {
+async function callOpenAI(
+  transcript: InterviewTurn[],
+  context: EvaluationContext,
+): Promise<ProviderResult | null> {
   const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
@@ -314,11 +445,11 @@ async function callOpenAI(transcript: InterviewTurn[]): Promise<ProviderResult |
       messages: [
         {
           role: "system",
-          content: SYSTEM_PROMPT,
+          content: buildSystemPrompt(context),
         },
         {
           role: "user",
-          content: JSON.stringify({ transcript }),
+          content: buildUserPayload(transcript, context),
         },
       ],
     }),
@@ -338,11 +469,14 @@ async function callOpenAI(transcript: InterviewTurn[]): Promise<ProviderResult |
   const parsed = safeJsonParse(content);
   return {
     provider: "openai",
-    evaluation: normalizeEvaluation(parsed, transcript),
+    evaluation: normalizeEvaluation(parsed, transcript, context),
   };
 }
 
-async function callGemini(transcript: InterviewTurn[]): Promise<ProviderResult | null> {
+async function callGemini(
+  transcript: InterviewTurn[],
+  context: EvaluationContext,
+): Promise<ProviderResult | null> {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
@@ -371,7 +505,7 @@ async function callGemini(transcript: InterviewTurn[]): Promise<ProviderResult |
       },
       body: JSON.stringify({
         systemInstruction: {
-          parts: [{ text: SYSTEM_PROMPT }],
+          parts: [{ text: buildSystemPrompt(context) }],
         },
         generationConfig: {
           temperature: 0.2,
@@ -380,7 +514,7 @@ async function callGemini(transcript: InterviewTurn[]): Promise<ProviderResult |
         contents: [
           {
             role: "user",
-            parts: [{ text: JSON.stringify({ transcript }) }],
+            parts: [{ text: buildUserPayload(transcript, context) }],
           },
         ],
       }),
@@ -408,7 +542,7 @@ async function callGemini(transcript: InterviewTurn[]): Promise<ProviderResult |
 
     return {
       provider: "gemini",
-      evaluation: normalizeEvaluation(parsed, transcript),
+      evaluation: normalizeEvaluation(parsed, transcript, context),
     };
   }
 
@@ -417,9 +551,17 @@ async function callGemini(transcript: InterviewTurn[]): Promise<ProviderResult |
 
 export async function evaluateInterviewTranscript(
   transcript: InterviewTurn[],
+  context: EvaluationContext = {},
 ): Promise<ProviderResult> {
+  if (!hasAnyUserAnswer(transcript)) {
+    return {
+      provider: "fallback",
+      evaluation: createNoAnswerEvaluation(transcript, context),
+    };
+  }
+
   try {
-    const openAIResult = await callOpenAI(transcript);
+    const openAIResult = await callOpenAI(transcript, context);
     if (openAIResult) {
       return openAIResult;
     }
@@ -428,7 +570,7 @@ export async function evaluateInterviewTranscript(
   }
 
   try {
-    const geminiResult = await callGemini(transcript);
+    const geminiResult = await callGemini(transcript, context);
     if (geminiResult) {
       return geminiResult;
     }
@@ -438,6 +580,6 @@ export async function evaluateInterviewTranscript(
 
   return {
     provider: "fallback",
-    evaluation: createFallbackEvaluation(transcript),
+    evaluation: createFallbackEvaluation(transcript, context),
   };
 }
