@@ -1,21 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import { ChangeEvent, DragEvent, useRef, useState } from "react";
-import { FileText } from "lucide-react";
+import { ChangeEvent, DragEvent, useEffect, useRef, useState } from "react";
+import { FileText, Loader2, Sparkles } from "lucide-react";
+
+type AnalysisState = "idle" | "analyzing" | "ready";
 
 export function DropZone() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const analysisTimeoutRef = useRef<number | null>(null);
   const [selectedFile, setSelectedFile] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
+  const [analysisState, setAnalysisState] = useState<AnalysisState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    return () => {
+      if (analysisTimeoutRef.current) {
+        window.clearTimeout(analysisTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleFile = (file: File | undefined) => {
     if (!file) return;
+
     if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
       setSelectedFile("");
+      setAnalysisState("idle");
+      setErrorMessage("Hệ thống hiện chỉ hỗ trợ file PDF. Vui lòng thử lại.");
       return;
     }
+
+    setErrorMessage("");
     setSelectedFile(file.name);
+    setAnalysisState("analyzing");
+
+    if (analysisTimeoutRef.current) {
+      window.clearTimeout(analysisTimeoutRef.current);
+    }
+
+    analysisTimeoutRef.current = window.setTimeout(() => {
+      setAnalysisState("ready");
+    }, 2200);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +67,9 @@ export function DropZone() {
         onClick={() => fileInputRef.current?.click()}
         className={`group relative cursor-pointer overflow-hidden rounded-3xl border p-10 text-center transition-all duration-300 sm:p-16 ${
           isDragging
-            ? "border-fuchsia-300/80 bg-white/12 shadow-[0_0_30px_rgba(217,70,239,0.35)]"
-            : "border-white/10 bg-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] hover:border-cyan-300/70 hover:bg-white/10 hover:shadow-[0_0_34px_rgba(59,130,246,0.35)]"
-        } backdrop-blur-xl`}
+            ? "border-sky-300/90 bg-white/75 shadow-[0_12px_36px_rgba(14,116,144,0.16)]"
+            : "border-white/80 bg-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-sky-200 hover:bg-white/70 hover:shadow-[0_14px_32px_rgba(59,130,246,0.12)]"
+        } backdrop-blur-2xl`}
       >
         <input
           ref={fileInputRef}
@@ -52,30 +79,49 @@ export function DropZone() {
           onChange={handleInputChange}
         />
 
-        <div className="animate-soft-pulse mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl border border-white/15 bg-white/5 shadow-[0_0_28px_rgba(56,189,248,0.35)] transition-all duration-300 group-hover:shadow-[0_0_32px_rgba(236,72,153,0.4)]">
-          <FileText className="h-10 w-10 text-cyan-200" />
+        <div className="animate-soft-pulse mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl border border-sky-100 bg-gradient-to-br from-sky-50 to-indigo-50 shadow-[0_10px_28px_rgba(59,130,246,0.16)] transition-all duration-300 group-hover:shadow-[0_14px_32px_rgba(236,72,153,0.18)]">
+          <FileText className="h-10 w-10 text-sky-600" />
         </div>
 
-        <h3 className="text-xl font-semibold text-white sm:text-2xl">
+        <h3 className="text-xl font-semibold text-slate-900 sm:text-2xl">
           Kéo thả CV của bạn vào không gian này (PDF)
         </h3>
-        <p className="mt-3 text-sm text-slate-300 sm:text-base">
+        <p className="mt-3 text-sm text-slate-500 sm:text-base">
           Hoặc bấm vào khung để chọn file từ thiết bị của bạn.
         </p>
+
+        <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-gradient-to-br from-sky-200/60 to-rose-200/60 blur-2xl" />
       </div>
 
+      {errorMessage ? (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50/80 px-4 py-3 text-sm text-rose-600 backdrop-blur-xl">
+          {errorMessage}
+        </div>
+      ) : null}
+
       {selectedFile ? (
-        <div className="animate-fade-in-up mx-auto w-full max-w-xl rounded-2xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
-          <p className="text-sm text-slate-300">File đã chọn</p>
-          <p className="mt-1 truncate text-base font-medium text-white">
+        <div className="animate-fade-in-up mx-auto w-full max-w-xl rounded-2xl border border-white/80 bg-white/65 p-5 text-center backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <p className="text-sm text-slate-500">File đã chọn</p>
+          <p className="mt-1 truncate text-base font-medium text-slate-900">
             {selectedFile}
           </p>
-          <Link
-            href="/interview"
-            className="mt-5 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_0_30px_rgba(168,85,247,0.55)] transition-transform duration-300 hover:scale-[1.02] hover:shadow-[0_0_36px_rgba(217,70,239,0.6)]"
-          >
-            Bắt đầu Phỏng vấn
-          </Link>
+
+          {analysisState === "analyzing" ? (
+            <div className="mt-5 inline-flex items-center gap-3 rounded-full border border-sky-200 bg-sky-50 px-5 py-3 text-sm font-medium text-sky-700">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Đang phân tích CV...
+            </div>
+          ) : null}
+
+          {analysisState === "ready" ? (
+            <Link
+              href="/evaluation"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-rose-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(99,102,241,0.32)] transition-transform duration-300 hover:scale-[1.02]"
+            >
+              <Sparkles className="h-4 w-4" />
+              Xem đánh giá CV
+            </Link>
+          ) : null}
         </div>
       ) : null}
     </div>

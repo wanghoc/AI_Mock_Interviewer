@@ -4,13 +4,13 @@ export function MeshBackground() {
       aria-hidden
       className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden"
     >
-      <div className="animate-drift-slow absolute left-[-10%] top-[-15%] h-80 w-80 rounded-full bg-violet-600/30 blur-[120px] sm:h-[28rem] sm:w-[28rem]" />
-      <div className="animate-drift-medium absolute right-[-12%] top-[8%] h-72 w-72 rounded-full bg-blue-600/30 blur-[120px] sm:h-[24rem] sm:w-[24rem]" />
-      <div className="animate-drift-fast absolute bottom-[-18%] left-[15%] h-80 w-80 rounded-full bg-fuchsia-500/20 blur-[130px] sm:h-[30rem] sm:w-[30rem]" />
-      <div className="animate-drift-medium absolute bottom-[10%] right-[5%] h-64 w-64 rounded-full bg-cyan-500/20 blur-[110px] sm:h-[22rem] sm:w-[22rem]" />
+      <div className="animate-drift-slow absolute left-[-10%] top-[-18%] h-[22rem] w-[22rem] rounded-full bg-sky-200/70 blur-[120px] sm:h-[30rem] sm:w-[30rem]" />
+      <div className="animate-drift-medium absolute right-[-8%] top-[2%] h-[20rem] w-[20rem] rounded-full bg-violet-200/65 blur-[115px] sm:h-[27rem] sm:w-[27rem]" />
+      <div className="animate-drift-fast absolute bottom-[-24%] left-[12%] h-[22rem] w-[22rem] rounded-full bg-rose-200/65 blur-[125px] sm:h-[31rem] sm:w-[31rem]" />
+      <div className="animate-drift-medium absolute bottom-[-15%] right-[5%] h-[18rem] w-[18rem] rounded-full bg-amber-100/70 blur-[110px] sm:h-[25rem] sm:w-[25rem]" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.15),_rgba(2,6,23,0.9)_45%,_rgba(2,6,23,1)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(148,163,184,0.05)_0%,transparent_30%,transparent_70%,rgba(148,163,184,0.05)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,0.9)_0%,transparent_45%),radial-gradient(circle_at_80%_20%,rgba(191,219,254,0.35)_0%,transparent_46%),linear-gradient(180deg,rgba(248,250,252,0.95)_0%,rgba(241,245,249,0.9)_100%)]" />
+      <div className="absolute inset-0 opacity-65 [background-image:linear-gradient(rgba(148,163,184,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.09)_1px,transparent_1px)] [background-size:58px_58px]" />
     </div>
   );
 }

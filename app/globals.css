@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #e2e8f0;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -13,22 +13,19 @@
 }
 
 body {
-  background:
-    radial-gradient(circle at 20% -10%, rgba(76, 29, 149, 0.35), transparent 40%),
-    radial-gradient(circle at 80% 5%, rgba(30, 64, 175, 0.3), transparent 35%),
-    var(--background);
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sora), sans-serif;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
 }
 
 ::selection {
-  background: rgba(217, 70, 239, 0.45);
-  color: #f8fafc;
+  background: rgba(125, 211, 252, 0.45);
+  color: #0f172a;
 }
 
 @keyframes fade-in-up {

@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "AI Mock Interviewer",
-  description: "Liquid glass interface for AI-powered mock interview experience",
+  description: "Light glassmorphism interface for AI-powered mock interview experience",
 };
 
 export default function RootLayout({
@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="vi"
       className={`${sora.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-slate-950 text-slate-100">
+      <body className="min-h-full bg-slate-50 text-slate-900">
         <div className="relative min-h-screen overflow-x-hidden">
           <MeshBackground />
           <FloatingHeader />
