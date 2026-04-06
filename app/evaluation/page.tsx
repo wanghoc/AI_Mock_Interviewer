@@ -108,6 +108,20 @@ function validateTranscript(input: unknown): InterviewTurn[] {
     .filter((item): item is InterviewTurn => item !== null);
 }
 
+async function parseJsonResponse<T>(response: Response): Promise<T | null> {
+  const raw = await response.text();
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
+}
+
 function LoadingView({ mode }: { mode: EvaluationMode }) {
   const isCvMode = mode === "cv";
 
@@ -529,13 +543,15 @@ export default function EvaluationPage() {
           }),
         });
 
-        const payload = (await response.json()) as EvaluateCvResponse | { error?: string };
+        const payload = await parseJsonResponse<
+          EvaluateCvResponse | { error?: string }
+        >(response);
 
-        if (!response.ok || !("status" in payload)) {
+        if (!response.ok || !payload || !("status" in payload)) {
           throw new Error(
-            "error" in payload && payload.error
+            payload && "error" in payload && payload.error
               ? payload.error
-              : "Không thể đánh giá CV vào lúc này.",
+              : `Không thể đánh giá CV vào lúc này (HTTP ${response.status}).`,
           );
         }
 
@@ -625,15 +641,16 @@ export default function EvaluationPage() {
           cache: "no-store",
         });
 
-        const payload = (await response.json()) as
+        const payload = await parseJsonResponse<
           | EvaluateInterviewResponse
-          | { error?: string };
+          | { error?: string }
+        >(response);
 
-        if (!response.ok || !("status" in payload)) {
+        if (!response.ok || !payload || !("status" in payload)) {
           const backendError =
-            "error" in payload && payload.error
+            payload && "error" in payload && payload.error
               ? payload.error
-              : "Hệ thống không thể tạo đánh giá vào lúc này.";
+              : `Hệ thống không thể tạo đánh giá vào lúc này (HTTP ${response.status}).`;
           throw new Error(backendError);
         }
 

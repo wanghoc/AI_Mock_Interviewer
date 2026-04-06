@@ -21,6 +21,8 @@ const dataDirectoryPath = path.join(process.cwd(), ".data");
 const dataFilePath = path.join(dataDirectoryPath, "interview-evaluations.json");
 
 let isStoreHydrated = false;
+let diskPersistenceEnabled = true;
+let hasWarnedPersistenceFallback = false;
 
 interface SaveRecordInput {
   provider: AIProvider;
@@ -28,8 +30,37 @@ interface SaveRecordInput {
   evaluation: InterviewEvaluationResult;
 }
 
+function getErrorCode(error: unknown): string | undefined {
+  if (!error || typeof error !== "object") {
+    return undefined;
+  }
+
+  const code = (error as { code?: unknown }).code;
+  return typeof code === "string" ? code : undefined;
+}
+
+function isDiskPermissionError(error: unknown): boolean {
+  const code = getErrorCode(error);
+
+  return code === "EROFS" || code === "EACCES" || code === "EPERM";
+}
+
+function warnPersistenceFallback(action: "read" | "write", error: unknown) {
+  if (hasWarnedPersistenceFallback) {
+    return;
+  }
+
+  hasWarnedPersistenceFallback = true;
+
+  const reason = error instanceof Error ? error.message : "Unknown error";
+  console.warn(
+    `Interview evaluation ${action} persistence unavailable. Falling back to in-memory store only.`,
+    { reason },
+  );
+}
+
 async function hydrateStoreFromDisk() {
-  if (isStoreHydrated) {
+  if (isStoreHydrated || !diskPersistenceEnabled) {
     return;
   }
 
@@ -52,23 +83,45 @@ async function hydrateStoreFromDisk() {
         interviewEvaluationStore.set(record.id, record);
       }
     }
-  } catch {
-    // Ignore when storage file does not exist or has invalid content.
+  } catch (error) {
+    const code = getErrorCode(error);
+
+    if (code === "ENOENT") {
+      // Ignore when storage file does not exist.
+    } else {
+      warnPersistenceFallback("read", error);
+    }
+
+    if (isDiskPermissionError(error)) {
+      diskPersistenceEnabled = false;
+    }
   } finally {
     isStoreHydrated = true;
   }
 }
 
 async function persistStoreToDisk() {
-  await fs.mkdir(dataDirectoryPath, { recursive: true });
+  if (!diskPersistenceEnabled) {
+    return;
+  }
 
-  const serialized = JSON.stringify(
-    Array.from(interviewEvaluationStore.values()),
-    null,
-    2,
-  );
+  try {
+    await fs.mkdir(dataDirectoryPath, { recursive: true });
 
-  await fs.writeFile(dataFilePath, serialized, "utf-8");
+    const serialized = JSON.stringify(
+      Array.from(interviewEvaluationStore.values()),
+      null,
+      2,
+    );
+
+    await fs.writeFile(dataFilePath, serialized, "utf-8");
+  } catch (error) {
+    if (isDiskPermissionError(error)) {
+      diskPersistenceEnabled = false;
+    }
+
+    warnPersistenceFallback("write", error);
+  }
 }
 
 export async function saveInterviewEvaluationRecord(

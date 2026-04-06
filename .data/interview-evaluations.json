@@ -581,5 +581,79 @@
       "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
     },
     "createdAt": "2026-04-06T14:19:35.278Z"
+  },
+  {
+    "id": "85c81944-57d0-43d2-a6ba-b3ef8361a38f",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775494727402-user",
+        "role": "user",
+        "message": "tôi yêu thích sáng tạo nội dung và làm content",
+        "timestamp": "23:58"
+      },
+      {
+        "id": "turn-1775494731735-ai",
+        "role": "ai",
+        "message": "Dựa trên sở thích làm content, hãy nêu một dự án hoặc bài viết cụ thể bạn từng thực hiện: mục tiêu của nó là gì và bạn đã đo lường hiệu quả bằng những chỉ số (metrics) thực tế nào?",
+        "timestamp": "23:58"
+      },
+      {
+        "id": "turn-1775494822509-user",
+        "role": "user",
+        "message": "tôi từng làm 1 bài đăng trên tiktok đạt 1,2tr view, hơn 65k tim và hàng trăm bình luận",
+        "timestamp": "00:00"
+      },
+      {
+        "id": "turn-1775494830302-ai",
+        "role": "ai",
+        "message": "Với video 1,2tr view đó, mục tiêu chuyển đổi thực tế bạn đạt được là gì (ví dụ: số follower mới, click link); và nếu video tiếp theo bị sụt giảm tương tác, bạn sẽ phân tích những chỉ số kỹ thuật nào trong TikTok Analytics để tìm ra nguyên nhân?",
+        "timestamp": "00:00"
+      }
+    ],
+    "evaluation": {
+      "score": 73,
+      "strengths": [
+        "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+        "Có thể hiện được kinh nghiệm liên quan đến vai trò thực tập sinh Marketing.",
+        "Giọng văn phong và thái độ trả lời mang tính hợp tác."
+      ],
+      "weaknesses": [
+        "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+        "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+        "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "tôi yêu thích sáng tạo nội dung và làm content",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-2",
+          "question": "Dựa trên sở thích làm content, hãy nêu một dự án hoặc bài viết cụ thể bạn từng thực hiện: mục tiêu của nó là gì và bạn đã đo lường hiệu quả bằng những chỉ số (metrics) thực tế nào?",
+          "user_answer": "tôi từng làm 1 bài đăng trên tiktok đạt 1,2tr view, hơn 65k tim và hàng trăm bình luận",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-3",
+          "question": "Với video 1,2tr view đó, mục tiêu chuyển đổi thực tế bạn đạt được là gì (ví dụ: số follower mới, click link); và nếu video tiếp theo bị sụt giảm tương tác, bạn sẽ phân tích những chỉ số kỹ thuật nào trong TikTok Analytics để tìm ra nguyên nhân?",
+          "user_answer": "Ứng viên chưa trả lời cho câu hỏi này.",
+          "feedback": "Ứng viên chưa đưa ra câu trả lời cho câu hỏi này, nên chưa có dữ liệu để đánh giá năng lực.",
+          "suggested_answer": "Nên trả lời ngắn gọn theo cấu trúc Situation -> Action -> Result liên quan đến vai trò thực tập sinh Marketing."
+        }
+      ],
+      "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
+    },
+    "createdAt": "2026-04-06T17:00:40.464Z"
   }
 ]

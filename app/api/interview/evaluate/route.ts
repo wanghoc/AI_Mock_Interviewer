@@ -120,30 +120,43 @@ export async function POST(request: NextRequest) {
   const cvEvaluationSummary =
     typeof body.cvEvaluationSummary === "string" ? body.cvEvaluationSummary : "";
 
-  const result = await evaluateInterviewTranscript(transcript, {
-    profile,
-    cvText,
-    cvEvaluationSummary,
-  });
-  const savedRecord = await saveInterviewEvaluationRecord({
-    provider: result.provider,
-    transcript,
-    evaluation: result.evaluation,
-  });
+  try {
+    const result = await evaluateInterviewTranscript(transcript, {
+      profile,
+      cvText,
+      cvEvaluationSummary,
+    });
 
-  const response: EvaluateInterviewResponse = {
-    status: "ok",
-    evaluationId: savedRecord.id,
-    provider: savedRecord.provider,
-    evaluation: savedRecord.evaluation,
-    rawTranscript: transcript,
-    evaluatedAt: savedRecord.createdAt,
-  };
+    const savedRecord = await saveInterviewEvaluationRecord({
+      provider: result.provider,
+      transcript,
+      evaluation: result.evaluation,
+    });
 
-  return NextResponse.json(response, {
-    status: 200,
-    headers: {
-      "Cache-Control": "no-store",
-    },
-  });
+    const response: EvaluateInterviewResponse = {
+      status: "ok",
+      evaluationId: savedRecord.id,
+      provider: savedRecord.provider,
+      evaluation: savedRecord.evaluation,
+      rawTranscript: transcript,
+      evaluatedAt: savedRecord.createdAt,
+    };
+
+    return NextResponse.json(response, {
+      status: 200,
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    });
+  } catch (error) {
+    console.error("Interview evaluation route failed", error);
+
+    return NextResponse.json(
+      {
+        error:
+          "Hệ thống không thể hoàn tất đánh giá phỏng vấn ở thời điểm hiện tại. Vui lòng thử lại sau ít phút.",
+      },
+      { status: 500 },
+    );
+  }
 }
