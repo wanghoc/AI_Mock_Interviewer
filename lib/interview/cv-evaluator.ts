@@ -29,6 +29,14 @@ interface CvEvaluationProviderResult {
   evaluation: CvEvaluationResult;
 }
 
+function toErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message.trim().length > 0) {
+    return error.message;
+  }
+
+  return "Unknown error";
+}
+
 function stripCodeFence(input: string): string {
   const trimmed = input.trim();
 
@@ -85,6 +93,7 @@ function buildSystemPrompt(language: "vi" | "en"): string {
     return [
       "Bạn là chuyên gia tuyển dụng cấp cao chuyên đánh giá CV kỹ thuật.",
       "Hãy đánh giá hồ sơ dựa trên profile ứng viên và nội dung CV (nếu có).",
+      "Bắt buộc viết toàn bộ nhận xét bằng tiếng Việt có dấu, rõ ràng, chuyên nghiệp.",
       "Trả về DUY NHẤT JSON hợp lệ với đúng schema sau:",
       "{",
       '  "score": number (0-100),',
@@ -262,14 +271,14 @@ async function callOpenAI(
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI CV evaluation failed: ${response.status}`);
+    return null;
   }
 
   const data = (await response.json()) as OpenAIChatCompletionResponse;
   const content = data.choices?.[0]?.message?.content;
 
   if (!content) {
-    throw new Error("OpenAI CV evaluation returned empty content.");
+    return null;
   }
 
   return {
@@ -325,7 +334,7 @@ async function callGemini(
     }
 
     if (!response.ok) {
-      throw new Error(`Gemini CV evaluation failed: ${response.status}`);
+      continue;
     }
 
     const data = (await response.json()) as GeminiResponse;
@@ -335,7 +344,7 @@ async function callGemini(
       .trim();
 
     if (!content) {
-      throw new Error("Gemini CV evaluation returned empty content.");
+      continue;
     }
 
     return {
@@ -367,7 +376,9 @@ export async function evaluateCvWithAI(
       return openAIResult;
     }
   } catch (error) {
-    console.error("OpenAI CV evaluation failed", error);
+    console.warn("OpenAI CV evaluation unavailable, switching provider.", {
+      reason: toErrorMessage(error),
+    });
   }
 
   try {
@@ -376,7 +387,9 @@ export async function evaluateCvWithAI(
       return geminiResult;
     }
   } catch (error) {
-    console.error("Gemini CV evaluation failed", error);
+    console.warn("Gemini CV evaluation unavailable, using fallback.", {
+      reason: toErrorMessage(error),
+    });
   }
 
   return {

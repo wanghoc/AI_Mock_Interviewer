@@ -44,31 +44,40 @@ interface EvaluationContext {
   cvEvaluationSummary?: string;
 }
 
-const UNANSWERED_TEXT = "Ung vien chua tra loi cho cau hoi nay.";
+const UNANSWERED_TEXT = "Ứng viên chưa trả lời cho câu hỏi này.";
+
+function toErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message.trim().length > 0) {
+    return error.message;
+  }
+
+  return "Unknown error";
+}
 
 function buildSystemPrompt(context: EvaluationContext): string {
-  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
-  const candidateName = context.profile?.candidateName?.trim() || "ung vien";
+  const role = context.profile?.targetRole?.trim() || "vị trí ứng tuyển";
+  const candidateName = context.profile?.candidateName?.trim() || "ứng viên";
   const highlights = context.profile?.highlights?.trim();
   const cvExcerpt = context.cvText?.trim().slice(0, 1400) ?? "";
   const cvEvaluationSummary = context.cvEvaluationSummary?.trim().slice(0, 900) ?? "";
 
   return [
-    `Ban la chuyen gia HR cap cao dang danh gia ${candidateName} cho vai tro ${role}.`,
-    "Hay doc lich su phong van va danh gia nang luc ung vien.",
-    "Bat buoc can bang giua chat luong cau tra loi, muc do phu hop vai tro, va do khop voi thong tin CV.",
-    "Neu cau tra loi khong co du lieu, feedback phai noi ro ly do thay vi suy dien.",
+    `Bạn là chuyên gia HR cấp cao đang đánh giá ${candidateName} cho vai trò ${role}.`,
+    "Hãy đọc lịch sử phỏng vấn và đánh giá năng lực ứng viên.",
+    "Bắt buộc cân bằng giữa chất lượng câu trả lời, mức độ phù hợp vai trò, và độ khớp với thông tin CV.",
+    "Nếu câu trả lời không có dữ liệu, feedback phải nói rõ lý do thay vì suy diễn.",
+    "Bắt buộc viết toàn bộ nhận xét bằng tiếng Việt có dấu, mạch lạc, chuyên nghiệp.",
     highlights
-      ? `Thong tin noi bat tu profile: ${highlights}`
-      : "Neu profile thieu du lieu, hay note ro rang gioi han danh gia.",
+      ? `Thông tin nổi bật từ profile: ${highlights}`
+      : "Nếu profile thiếu dữ liệu, hãy nêu rõ giới hạn đánh giá.",
     cvExcerpt
-      ? `Trich doan CV de tham chieu: ${cvExcerpt}`
-      : "Khong co trich doan CV day du, chi danh gia tren transcript va profile.",
+      ? `Trích đoạn CV để tham chiếu: ${cvExcerpt}`
+      : "Không có trích đoạn CV đầy đủ, chỉ đánh giá trên transcript và profile.",
     cvEvaluationSummary
-      ? `Tom tat danh gia CV truoc do: ${cvEvaluationSummary}`
-      : "Chua co tong ket CV truoc do.",
-    "Chi duoc tra ve DUY NHAT mot JSON hop le, khong them giai thich.",
-    "JSON phai theo dung schema:",
+      ? `Tóm tắt đánh giá CV trước đó: ${cvEvaluationSummary}`
+      : "Chưa có tổng kết CV trước đó.",
+    "Chỉ được trả về DUY NHẤT một JSON hợp lệ, không thêm giải thích.",
+    "JSON phải theo đúng schema:",
     "{",
     '  "score": number (0-100),',
     '  "strengths": string[],',
@@ -109,6 +118,8 @@ function isUnansweredText(input: string): boolean {
 
   return (
     normalized.length === 0 ||
+    normalized.includes("chưa trả lời") ||
+    normalized.includes("không trả lời") ||
     normalized.includes("chua tra loi") ||
     normalized.includes("khong tra loi")
   );
@@ -204,18 +215,18 @@ function fallbackDetailedReview(
   pairs: QuestionAnswerPair[],
   context: EvaluationContext,
 ): InterviewDetailedReviewItem[] {
-  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const role = context.profile?.targetRole?.trim() || "vị trí ứng tuyển";
 
   return pairs.map((pair) => ({
     id: pair.id,
     question: pair.question,
     user_answer: pair.userAnswer,
     feedback: isUnansweredText(pair.userAnswer)
-      ? "Ung vien chua dua ra cau tra loi cho cau hoi nay, nen chua co du lieu de danh gia nang luc."
-      : "Cau tra loi da co y chinh, nhung nen bo sung so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+      ? "Ứng viên chưa đưa ra câu trả lời cho câu hỏi này, nên chưa có dữ liệu để đánh giá năng lực."
+      : "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
     suggested_answer: isUnansweredText(pair.userAnswer)
-      ? `Nen tra loi ngan gon theo cau truc Situation -> Action -> Result lien quan den vai tro ${role}.`
-      : "Hay tra loi theo cau truc Situation -> Action -> Result va bo sung metric do luong ket qua.",
+      ? `Nên trả lời ngắn gọn theo cấu trúc Situation -> Action -> Result liên quan đến vai trò ${role}.`
+      : "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả.",
   }));
 }
 
@@ -240,7 +251,7 @@ function normalizeDetailedReview(
       const question =
         typeof entry.question === "string" && entry.question.trim().length > 0
           ? entry.question.trim()
-          : pair?.question ?? "Cau hoi phong van";
+          : pair?.question ?? "Câu hỏi phỏng vấn";
 
       const userAnswer =
         typeof entry.user_answer === "string" &&
@@ -251,13 +262,13 @@ function normalizeDetailedReview(
       const feedback =
         typeof entry.feedback === "string" && entry.feedback.trim().length > 0
           ? entry.feedback.trim()
-          : "Can bo sung minh chung cu the de tang muc do thuyet phuc.";
+          : "Cần bổ sung minh chứng cụ thể để tăng mức độ thuyết phục.";
 
       const suggestedAnswer =
         typeof entry.suggested_answer === "string" &&
         entry.suggested_answer.trim().length > 0
           ? entry.suggested_answer.trim()
-          : "Hay tra loi theo cau truc ro rang va co so lieu do luong ket qua.";
+          : "Hãy trả lời theo cấu trúc rõ ràng và có số liệu đo lường kết quả.";
 
       if (isUnansweredText(userAnswer)) {
         return {
@@ -265,9 +276,9 @@ function normalizeDetailedReview(
           question,
           user_answer: UNANSWERED_TEXT,
           feedback:
-            "Ung vien chua tra loi cau hoi nay, vi vay chua the phan tich diem manh/yeu cho muc nay.",
+            "Ứng viên chưa trả lời câu hỏi này, vì vậy chưa thể phân tích điểm mạnh/yếu cho mục này.",
           suggested_answer:
-            "Can bo sung cau tra loi thuc te voi boi canh, hanh dong va ket qua do luong duoc.",
+            "Cần bổ sung câu trả lời thực tế với bối cảnh, hành động và kết quả đo lường được.",
         };
       }
 
@@ -292,30 +303,30 @@ function createNoAnswerEvaluation(
   transcript: InterviewTurn[],
   context: EvaluationContext,
 ): InterviewEvaluationResult {
-  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const role = context.profile?.targetRole?.trim() || "vị trí ứng tuyển";
   const pairs = extractQuestionAnswerPairs(transcript);
 
   return {
     score: 0,
     strengths: [
-      "Ung vien chua tra loi cau hoi nao, nen chua co du lieu xac nhan diem manh.",
-      `Buoi phong van cho vai tro ${role} can duoc thuc hien lai de thu thap du lieu danh gia.`,
+      "Ứng viên chưa trả lời câu hỏi nào, nên chưa có dữ liệu xác nhận điểm mạnh.",
+      `Buổi phỏng vấn cho vai trò ${role} cần được thực hiện lại để thu thập dữ liệu đánh giá.`,
     ],
     weaknesses: [
-      "Ung vien chua cung cap cau tra loi, nen khong the danh gia nang luc thuc te.",
-      "Chua co du lieu de phan tich kinh nghiem, cach tu duy va ky nang giai quyet van de.",
+      "Ứng viên chưa cung cấp câu trả lời, nên không thể đánh giá năng lực thực tế.",
+      "Chưa có dữ liệu để phân tích kinh nghiệm, cách tư duy và kỹ năng giải quyết vấn đề.",
     ],
     detailed_review: pairs.map((pair, index) => ({
       id: `review-${index + 1}`,
       question: pair.question,
       user_answer: UNANSWERED_TEXT,
       feedback:
-        "Ung vien chua tra loi cau hoi nay, nen chua the dua ra nhan xet chuyen mon.",
+        "Ứng viên chưa trả lời câu hỏi này, nên chưa thể đưa ra nhận xét chuyên môn.",
       suggested_answer:
-        "Can tra loi day du de he thong va nha tuyen dung co co so danh gia.",
+        "Cần trả lời đầy đủ để hệ thống và nhà tuyển dụng có cơ sở đánh giá.",
     })),
     summary:
-      "Ung vien chua tra loi trong buoi phong van. He thong khong du du lieu de danh gia nang luc.",
+      "Ứng viên chưa trả lời trong buổi phỏng vấn. Hệ thống không đủ dữ liệu để đánh giá năng lực.",
   };
 }
 
@@ -325,7 +336,7 @@ function normalizeEvaluation(
   context: EvaluationContext,
 ): InterviewEvaluationResult {
   const pairs = extractQuestionAnswerPairs(transcript);
-  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const role = context.profile?.targetRole?.trim() || "vị trí ứng tuyển";
   const hasCvSignal = Boolean(
     context.profile?.highlights?.trim() ||
       context.cvText?.trim() ||
@@ -343,23 +354,23 @@ function normalizeEvaluation(
   const record = rawValue as Record<string, unknown>;
 
   const strengthsFallback = [
-    `Ung vien da co cau tra loi lien quan vai tro ${role}.`,
-    "Co the hien duoc kha nang giao tiep va trinh bay y tuong co cau truc.",
+    `Ứng viên đã có câu trả lời liên quan vai trò ${role}.`,
+    "Có thể hiện được khả năng giao tiếp và trình bày ý tưởng có cấu trúc.",
     hasCvSignal
-      ? "Noi dung tra loi co mot phan lien ket voi thong tin trong CV/profile."
-      : "Ung vien da tham gia trao doi va the hien thai do hop tac.",
+      ? "Nội dung trả lời có một phần liên kết với thông tin trong CV/profile."
+      : "Ứng viên đã tham gia trao đổi và thể hiện thái độ hợp tác.",
   ];
 
   const weaknessesFallback = [
-    "Can them vi du thuc te co metric de tang tinh thuyet phuc.",
-    "Nen tra loi co cau truc on dinh va ngan gon hon.",
+    "Cần thêm ví dụ thực tế có metric để tăng tính thuyết phục.",
+    "Nên trả lời có cấu trúc ổn định và ngắn gọn hơn.",
     hasCvSignal
-      ? "Can lien ket ro hon giua kinh nghiem trong CV va cau tra loi phong van."
-      : "Can dao sau hon ve trade-off ky thuat khi dua ra giai phap.",
+      ? "Cần liên kết rõ hơn giữa kinh nghiệm trong CV và câu trả lời phỏng vấn."
+      : "Cần đào sâu hơn về trade-off kỹ thuật khi đưa ra giải pháp.",
   ];
 
   const summaryFallback =
-    `Ung vien co tiem nang cho vai tro ${role}, can cai thien cach dien dat co metric va lien ket ro hon voi kinh nghiem da neu.`;
+    `Ứng viên có tiềm năng cho vai trò ${role}, cần cải thiện cách diễn đạt có metric và liên kết rõ hơn với kinh nghiệm đã nêu.`;
 
   return {
     score: clampScore(record.score),
@@ -381,7 +392,7 @@ function createFallbackEvaluation(
     return createNoAnswerEvaluation(transcript, context);
   }
 
-  const role = context.profile?.targetRole?.trim() || "vi tri ung tuyen";
+  const role = context.profile?.targetRole?.trim() || "vị trí ứng tuyển";
   const userAnswers = transcript.filter((item) => item.role === "user");
   const answerCount = userAnswers.length;
   const averageLength =
@@ -405,18 +416,18 @@ function createFallbackEvaluation(
   return {
     score,
     strengths: [
-      "Ung vien da tham gia luong hoi dap va bam sat chu de phong van.",
-      `Co the hien duoc kinh nghiem lien quan den vai tro ${role}.`,
-      "Giong van phong va thai do tra loi mang tinh hop tac.",
+      "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+      `Có thể hiện được kinh nghiệm liên quan đến vai trò ${role}.`,
+      "Giọng văn phong và thái độ trả lời mang tính hợp tác.",
     ],
     weaknesses: [
-      "Can bo sung so lieu ket qua de tang do tin cay cho tung vi du.",
-      "Can dao sau hon vao trade-off va cach ra quyet dinh ky thuat.",
-      "Nen ket thuc cau tra loi bang bai hoc hoac tac dong kinh doanh ro rang hon.",
+      "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+      "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+      "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn.",
     ],
     detailed_review: detailedReview,
     summary:
-      "He thong da tao ban danh gia tam thoi do chua cau hinh API AI. Ban co the them OPENAI_API_KEY hoac GEMINI_API_KEY de nhan nhan xet sau hon.",
+      "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn.",
   };
 }
 
@@ -456,14 +467,14 @@ async function callOpenAI(
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI request failed: ${response.status}`);
+    return null;
   }
 
   const data = (await response.json()) as OpenAIChatCompletionResponse;
   const content = data.choices?.[0]?.message?.content;
 
   if (!content) {
-    throw new Error("OpenAI returned empty content.");
+    return null;
   }
 
   const parsed = safeJsonParse(content);
@@ -525,7 +536,7 @@ async function callGemini(
     }
 
     if (!response.ok) {
-      throw new Error(`Gemini request failed: ${response.status}`);
+      continue;
     }
 
     const data = (await response.json()) as GeminiResponse;
@@ -535,7 +546,7 @@ async function callGemini(
       .trim();
 
     if (!content) {
-      throw new Error("Gemini returned empty content.");
+      continue;
     }
 
     const parsed = safeJsonParse(content);
@@ -566,7 +577,9 @@ export async function evaluateInterviewTranscript(
       return openAIResult;
     }
   } catch (error) {
-    console.error("OpenAI evaluation failed", error);
+    console.warn("OpenAI evaluation unavailable, switching provider.", {
+      reason: toErrorMessage(error),
+    });
   }
 
   try {
@@ -575,7 +588,9 @@ export async function evaluateInterviewTranscript(
       return geminiResult;
     }
   } catch (error) {
-    console.error("Gemini evaluation failed", error);
+    console.warn("Gemini evaluation unavailable, using fallback.", {
+      reason: toErrorMessage(error),
+    });
   }
 
   return {

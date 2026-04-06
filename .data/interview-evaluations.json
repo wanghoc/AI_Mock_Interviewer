@@ -231,5 +231,355 @@
       "summary": "Trieu Quang Hoc là một ứng viên 'Technical BA' tiềm năng với nền tảng kỹ thuật xuất sắc và tư duy hệ thống thực tế. Điểm mạnh lớn nhất là khả năng hiểu sâu về công nghệ (AI, Database) để giải quyết các bài toán nghiệp vụ. Tuy nhiên, ứng viên cần rèn luyện thêm về cách diễn đạt theo ngôn ngữ BA chuyên nghiệp và tập trung sâu hơn vào các quy tắc nghiệp vụ (Business Rules) cũng như quản trị rủi ro hệ thống. Đây là lựa chọn rất tốt cho các dự án cần BA có khả năng đọc hiểu code và thiết kế hệ thống phức tạp."
     },
     "createdAt": "2026-04-06T13:23:29.509Z"
+  },
+  {
+    "id": "6435f3f6-a9c4-4648-9466-3f6593aa6ca2",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775484447364-user",
+        "role": "user",
+        "message": "tôii là Học",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484454309-ai",
+        "role": "ai",
+        "message": "Bạn có thể chia sẻ cụ thể hơn về cách bạn thiết kế luồng dữ liệu (workflow) từ lúc camera bắt được hình ảnh cho đến khi Backend xử lý xong giao dịch để đảm bảo hệ thống hoạt động ổn định và nhanh chóng không?",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484464269-user",
+        "role": "user",
+        "message": "tôi không",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484465114-ai",
+        "role": "ai",
+        "message": "Bạn có thể chia sẻ một tình huống phải trade-off giữa hiệu năng và trải nghiệm người dùng không?",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484498893-user",
+        "role": "user",
+        "message": "không, tôi chịu",
+        "timestamp": "21:08"
+      },
+      {
+        "id": "turn-1775484512549-ai",
+        "role": "ai",
+        "message": "Trong dự án eParking, bạn đã tổ chức luồng dữ liệu như thế nào để kết nối giữa Backend (Node.js) và mô hình nhận diện biển số (YOLO/Python), nhằm đảm bảo thông tin biển số được xử lý và lưu vào Database theo thời gian thực mà không gây độ trễ lớn cho người dùng?",
+        "timestamp": "21:08"
+      },
+      {
+        "id": "turn-1775484523543-user",
+        "role": "user",
+        "message": "chịu",
+        "timestamp": "21:08"
+      },
+      {
+        "id": "turn-1775484533210-ai",
+        "role": "ai",
+        "message": "Làm thế nào bạn thiết kế mối quan hệ giữa bảng 'Xe' (Vehicle) và bảng 'Lịch sử giao dịch' (Transaction) để đảm bảo hệ thống quản lý chính xác khi một xe ra vào bãi nhiều lần trong ngày?",
+        "timestamp": "21:08"
+      }
+    ],
+    "evaluation": {
+      "score": 71,
+      "strengths": [
+        "Ung vien da tham gia luong hoi dap va bam sat chu de phong van.",
+        "Co the hien duoc kinh nghiem lien quan den vai tro FullStack Developer intern.",
+        "Giong van phong va thai do tra loi mang tinh hop tac."
+      ],
+      "weaknesses": [
+        "Can bo sung so lieu ket qua de tang do tin cay cho tung vi du.",
+        "Can dao sau hon vao trade-off va cach ra quyet dinh ky thuat.",
+        "Nen ket thuc cau tra loi bang bai hoc hoac tac dong kinh doanh ro rang hon."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "tôii là Học",
+          "feedback": "Cau tra loi da co y chinh, nhung nen bo sung so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+          "suggested_answer": "Hay tra loi theo cau truc Situation -> Action -> Result va bo sung metric do luong ket qua."
+        },
+        {
+          "id": "qa-2",
+          "question": "Bạn có thể chia sẻ cụ thể hơn về cách bạn thiết kế luồng dữ liệu (workflow) từ lúc camera bắt được hình ảnh cho đến khi Backend xử lý xong giao dịch để đảm bảo hệ thống hoạt động ổn định và nhanh chóng không?",
+          "user_answer": "tôi không",
+          "feedback": "Cau tra loi da co y chinh, nhung nen bo sung so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+          "suggested_answer": "Hay tra loi theo cau truc Situation -> Action -> Result va bo sung metric do luong ket qua."
+        },
+        {
+          "id": "qa-3",
+          "question": "Bạn có thể chia sẻ một tình huống phải trade-off giữa hiệu năng và trải nghiệm người dùng không?",
+          "user_answer": "không, tôi chịu",
+          "feedback": "Cau tra loi da co y chinh, nhung nen bo sung so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+          "suggested_answer": "Hay tra loi theo cau truc Situation -> Action -> Result va bo sung metric do luong ket qua."
+        },
+        {
+          "id": "qa-4",
+          "question": "Trong dự án eParking, bạn đã tổ chức luồng dữ liệu như thế nào để kết nối giữa Backend (Node.js) và mô hình nhận diện biển số (YOLO/Python), nhằm đảm bảo thông tin biển số được xử lý và lưu vào Database theo thời gian thực mà không gây độ trễ lớn cho người dùng?",
+          "user_answer": "chịu",
+          "feedback": "Cau tra loi da co y chinh, nhung nen bo sung so lieu cu the, boi canh va ket qua de tang do thuyet phuc.",
+          "suggested_answer": "Hay tra loi theo cau truc Situation -> Action -> Result va bo sung metric do luong ket qua."
+        },
+        {
+          "id": "qa-5",
+          "question": "Làm thế nào bạn thiết kế mối quan hệ giữa bảng 'Xe' (Vehicle) và bảng 'Lịch sử giao dịch' (Transaction) để đảm bảo hệ thống quản lý chính xác khi một xe ra vào bãi nhiều lần trong ngày?",
+          "user_answer": "Ung vien chua tra loi cho cau hoi nay.",
+          "feedback": "Ung vien chua dua ra cau tra loi cho cau hoi nay, nen chua co du lieu de danh gia nang luc.",
+          "suggested_answer": "Nen tra loi ngan gon theo cau truc Situation -> Action -> Result lien quan den vai tro FullStack Developer intern."
+        }
+      ],
+      "summary": "He thong da tao ban danh gia tam thoi do chua cau hinh API AI. Ban co the them OPENAI_API_KEY hoac GEMINI_API_KEY de nhan nhan xet sau hon."
+    },
+    "createdAt": "2026-04-06T14:09:45.053Z"
+  },
+  {
+    "id": "28ea8447-b1a5-4d6e-ae78-6ecf31ff9869",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "B?n h�y gi?i thi?u ng?n g?n v? b?n th�n?",
+        "timestamp": "09:00"
+      },
+      {
+        "id": "turn-2",
+        "role": "user",
+        "message": "T�i l� l?p tr�nh vi�n frontend v?i 3 nam kinh nghi?m v� thu?ng ph? tr�ch t?i uu hi?u nang giao di?n.",
+        "timestamp": "09:01"
+      }
+    ],
+    "evaluation": {
+      "score": 74,
+      "strengths": [
+        "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+        "Có thể hiện được kinh nghiệm liên quan đến vai trò vị trí ứng tuyển.",
+        "Giọng văn phong và thái độ trả lời mang tính hợp tác."
+      ],
+      "weaknesses": [
+        "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+        "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+        "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "B?n h�y gi?i thi?u ng?n g?n v? b?n th�n?",
+          "user_answer": "T�i l� l?p tr�nh vi�n frontend v?i 3 nam kinh nghi?m v� thu?ng ph? tr�ch t?i uu hi?u nang giao di?n.",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        }
+      ],
+      "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
+    },
+    "createdAt": "2026-04-06T14:16:17.687Z"
+  },
+  {
+    "id": "866ef20a-b6b1-473c-968b-45d00dbe4d94",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Ban hay gioi thieu ngan gon ve ban than?",
+        "timestamp": "09:00"
+      },
+      {
+        "id": "turn-2",
+        "role": "user",
+        "message": "Toi la lap trinh vien frontend voi 3 nam kinh nghiem.",
+        "timestamp": "09:01"
+      }
+    ],
+    "evaluation": {
+      "score": 69,
+      "strengths": [
+        "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+        "Có thể hiện được kinh nghiệm liên quan đến vai trò vị trí ứng tuyển.",
+        "Giọng văn phong và thái độ trả lời mang tính hợp tác."
+      ],
+      "weaknesses": [
+        "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+        "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+        "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Ban hay gioi thieu ngan gon ve ban than?",
+          "user_answer": "Toi la lap trinh vien frontend voi 3 nam kinh nghiem.",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        }
+      ],
+      "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
+    },
+    "createdAt": "2026-04-06T14:17:59.411Z"
+  },
+  {
+    "id": "d1aa9cc2-68ed-4b15-a50a-de4df64d234a",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Ban hay gioi thieu ngan gon ve ban than?",
+        "timestamp": "09:00"
+      },
+      {
+        "id": "turn-2",
+        "role": "user",
+        "message": "Toi la lap trinh vien frontend voi 3 nam kinh nghiem.",
+        "timestamp": "09:01"
+      }
+    ],
+    "evaluation": {
+      "score": 69,
+      "strengths": [
+        "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+        "Có thể hiện được kinh nghiệm liên quan đến vai trò vị trí ứng tuyển.",
+        "Giọng văn phong và thái độ trả lời mang tính hợp tác."
+      ],
+      "weaknesses": [
+        "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+        "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+        "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Ban hay gioi thieu ngan gon ve ban than?",
+          "user_answer": "Toi la lap trinh vien frontend voi 3 nam kinh nghiem.",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        }
+      ],
+      "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
+    },
+    "createdAt": "2026-04-06T14:18:12.306Z"
+  },
+  {
+    "id": "aa8d465f-6f4a-4867-8d1d-cdddc88ea7b5",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775484447364-user",
+        "role": "user",
+        "message": "tôii là Học",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484454309-ai",
+        "role": "ai",
+        "message": "Bạn có thể chia sẻ cụ thể hơn về cách bạn thiết kế luồng dữ liệu (workflow) từ lúc camera bắt được hình ảnh cho đến khi Backend xử lý xong giao dịch để đảm bảo hệ thống hoạt động ổn định và nhanh chóng không?",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484464269-user",
+        "role": "user",
+        "message": "tôi không",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484465114-ai",
+        "role": "ai",
+        "message": "Bạn có thể chia sẻ một tình huống phải trade-off giữa hiệu năng và trải nghiệm người dùng không?",
+        "timestamp": "21:07"
+      },
+      {
+        "id": "turn-1775484498893-user",
+        "role": "user",
+        "message": "không, tôi chịu",
+        "timestamp": "21:08"
+      },
+      {
+        "id": "turn-1775484512549-ai",
+        "role": "ai",
+        "message": "Trong dự án eParking, bạn đã tổ chức luồng dữ liệu như thế nào để kết nối giữa Backend (Node.js) và mô hình nhận diện biển số (YOLO/Python), nhằm đảm bảo thông tin biển số được xử lý và lưu vào Database theo thời gian thực mà không gây độ trễ lớn cho người dùng?",
+        "timestamp": "21:08"
+      },
+      {
+        "id": "turn-1775484523543-user",
+        "role": "user",
+        "message": "chịu",
+        "timestamp": "21:08"
+      },
+      {
+        "id": "turn-1775484533210-ai",
+        "role": "ai",
+        "message": "Làm thế nào bạn thiết kế mối quan hệ giữa bảng 'Xe' (Vehicle) và bảng 'Lịch sử giao dịch' (Transaction) để đảm bảo hệ thống quản lý chính xác khi một xe ra vào bãi nhiều lần trong ngày?",
+        "timestamp": "21:08"
+      }
+    ],
+    "evaluation": {
+      "score": 71,
+      "strengths": [
+        "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+        "Có thể hiện được kinh nghiệm liên quan đến vai trò FullStack Developer intern.",
+        "Giọng văn phong và thái độ trả lời mang tính hợp tác."
+      ],
+      "weaknesses": [
+        "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+        "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+        "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "tôii là Học",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-2",
+          "question": "Bạn có thể chia sẻ cụ thể hơn về cách bạn thiết kế luồng dữ liệu (workflow) từ lúc camera bắt được hình ảnh cho đến khi Backend xử lý xong giao dịch để đảm bảo hệ thống hoạt động ổn định và nhanh chóng không?",
+          "user_answer": "tôi không",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-3",
+          "question": "Bạn có thể chia sẻ một tình huống phải trade-off giữa hiệu năng và trải nghiệm người dùng không?",
+          "user_answer": "không, tôi chịu",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-4",
+          "question": "Trong dự án eParking, bạn đã tổ chức luồng dữ liệu như thế nào để kết nối giữa Backend (Node.js) và mô hình nhận diện biển số (YOLO/Python), nhằm đảm bảo thông tin biển số được xử lý và lưu vào Database theo thời gian thực mà không gây độ trễ lớn cho người dùng?",
+          "user_answer": "chịu",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-5",
+          "question": "Làm thế nào bạn thiết kế mối quan hệ giữa bảng 'Xe' (Vehicle) và bảng 'Lịch sử giao dịch' (Transaction) để đảm bảo hệ thống quản lý chính xác khi một xe ra vào bãi nhiều lần trong ngày?",
+          "user_answer": "Ứng viên chưa trả lời cho câu hỏi này.",
+          "feedback": "Ứng viên chưa đưa ra câu trả lời cho câu hỏi này, nên chưa có dữ liệu để đánh giá năng lực.",
+          "suggested_answer": "Nên trả lời ngắn gọn theo cấu trúc Situation -> Action -> Result liên quan đến vai trò FullStack Developer intern."
+        }
+      ],
+      "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
+    },
+    "createdAt": "2026-04-06T14:19:35.278Z"
   }
 ]

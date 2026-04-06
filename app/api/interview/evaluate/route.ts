@@ -83,8 +83,8 @@ function parseCandidateProfile(input: unknown): InterviewCandidateProfile | unde
   }
 
   return {
-    candidateName: candidateName || "Ung vien",
-    targetRole: targetRole || "Vi tri ung tuyen",
+    candidateName: candidateName || "Ứng viên",
+    targetRole: targetRole || "Vị trí ứng tuyển",
     cvFileName: cvFileName || "resume.pdf",
     highlights:
       typeof record.highlights === "string" ? record.highlights.trim() : undefined,
