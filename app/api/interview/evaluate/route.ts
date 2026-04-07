@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
     body = (await request.json()) as EvaluateInterviewRequest;
   } catch {
     return NextResponse.json(
-      { error: "Invalid JSON payload." },
+      { error: "Dữ liệu JSON không hợp lệ." },
       { status: 400 },
     );
   }
@@ -108,8 +108,7 @@ export async function POST(request: NextRequest) {
   if (transcript.length === 0) {
     return NextResponse.json(
       {
-        error:
-          "Transcript is required. Send a non-empty array or JSON string of interview turns.",
+        error: "Thiếu transcript phỏng vấn. Vui lòng gửi danh sách hội thoại hợp lệ.",
       },
       { status: 400 },
     );

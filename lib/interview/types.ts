@@ -1,5 +1,5 @@
 export type InterviewTurnRole = "ai" | "user";
-export type AIProvider = "openai" | "gemini" | "fallback";
+export type AIProvider = "openai" | "gemini" | "claude" | "fallback";
 
 export type InterviewSessionStatus =
   | "IN_PROGRESS"
@@ -13,10 +13,23 @@ export interface InterviewTurn {
   timestamp: string;
 }
 
+export interface StrictAnswerEvaluation {
+  score: number;
+  is_off_topic: boolean;
+  candidate_flaws: string;
+  ideal_answer: string;
+}
+
+export type InterviewAnswerAssessment = StrictAnswerEvaluation;
+
 export interface InterviewDetailedReviewItem {
   id: string;
   question: string;
   user_answer: string;
+  score: number;
+  is_off_topic: boolean;
+  candidate_flaws: string;
+  ideal_answer: string;
   feedback: string;
   suggested_answer: string;
 }
@@ -57,6 +70,7 @@ export interface InterviewChatRequest {
   language?: "vi" | "en";
   profile?: InterviewCandidateProfile;
   cvContext?: string;
+  cvEvaluation?: CvEvaluationResult;
 }
 
 export interface InterviewChatResponse {
@@ -72,6 +86,15 @@ export interface CvEvaluationResult {
   weaknesses: string[];
   role_alignment: string[];
   interview_focus: string[];
+  recommended_roles: string[];
+  role_alignment_analysis: string;
+  project_breakdown: Array<{
+    project_or_experience: string;
+    standout_points: string;
+    unclear_points: string;
+  }>;
+  red_flags: string[];
+  drill_down_questions: string[];
   summary: string;
 }
 

@@ -42,13 +42,13 @@ export async function POST(request: NextRequest) {
     body = (await request.json()) as EvaluateCvRequest;
   } catch {
     return NextResponse.json(
-      { error: "Invalid JSON payload." },
+      { error: "Dữ liệu JSON không hợp lệ." },
       { status: 400 },
     );
   }
 
   const profile = parseCandidateProfile(body.profile);
-  const language = body.language === "en" ? "en" : "vi";
+  const language = "vi" as const;
   const cvText = typeof body.cvText === "string" ? body.cvText : "";
 
   const result = await evaluateCvWithAI(profile, cvText, language);

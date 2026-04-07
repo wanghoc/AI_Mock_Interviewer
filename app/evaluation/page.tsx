@@ -34,6 +34,41 @@ function clampPercentage(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
 
+interface ScoreTone {
+  label: string;
+  conicColor: string;
+  badgeClass: string;
+}
+
+function getOverallScoreTone(score: number): ScoreTone {
+  if (score < 40) {
+    return {
+      label: "Kém",
+      conicColor: "rgba(244,63,94,0.95)",
+      badgeClass: "border border-rose-200 bg-rose-50 text-rose-700",
+    };
+  }
+
+  if (score < 70) {
+    return {
+      label: "Tạm",
+      conicColor: "rgba(245,158,11,0.95)",
+      badgeClass: "border border-amber-200 bg-amber-50 text-amber-700",
+    };
+  }
+
+  return {
+    label: "Tốt",
+    conicColor: "rgba(16,185,129,0.95)",
+    badgeClass: "border border-emerald-200 bg-emerald-50 text-emerald-700",
+  };
+}
+
+function getAnswerScoreTone(score: number): ScoreTone {
+  const normalized = Math.max(0, Math.min(10, Math.round(score)));
+  return getOverallScoreTone(normalized * 10);
+}
+
 function parseCandidateProfile(input: string | null): InterviewCandidateProfile | null {
   if (!input) {
     return null;
@@ -160,6 +195,7 @@ function CvEvaluationView({ profile, data, provider }: CvEvaluationViewProps) {
   const cvFileName = profile?.cvFileName || "resume.pdf";
   const score = clampPercentage(data.score);
   const scoreAngle = score * 3.6;
+  const scoreTone = getOverallScoreTone(score);
 
   const handleStartInterview = () => {
     if (typeof window === "undefined") {
@@ -176,7 +212,7 @@ function CvEvaluationView({ profile, data, provider }: CvEvaluationViewProps) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-              CV Evaluation Dashboard
+              Bảng điều khiển đánh giá CV
             </p>
             <h1 className="mt-2 font-[family-name:var(--font-space-grotesk)] text-2xl font-semibold text-slate-900 sm:text-3xl">
               Đánh giá CV theo vị trí ứng tuyển
@@ -185,7 +221,7 @@ function CvEvaluationView({ profile, data, provider }: CvEvaluationViewProps) {
 
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-sky-700">
             <Sparkles className="h-3.5 w-3.5" />
-            AI Engine: {provider}
+            Bộ máy AI: {provider}
           </div>
         </div>
 
@@ -194,7 +230,7 @@ function CvEvaluationView({ profile, data, provider }: CvEvaluationViewProps) {
             <div
               className="absolute inset-0 rounded-full"
               style={{
-                background: `conic-gradient(rgba(56,189,248,0.95) ${scoreAngle}deg, rgba(203,213,225,0.45) ${scoreAngle}deg)`,
+                background: `conic-gradient(${scoreTone.conicColor} ${scoreAngle}deg, rgba(203,213,225,0.45) ${scoreAngle}deg)`,
               }}
             />
             <div className="absolute inset-[12px] rounded-full border border-white/80 bg-white/80 backdrop-blur-xl" />
@@ -204,6 +240,11 @@ function CvEvaluationView({ profile, data, provider }: CvEvaluationViewProps) {
               </span>
               <span className="text-xs uppercase tracking-[0.14em] text-slate-500">
                 Điểm CV
+              </span>
+              <span
+                className={`mt-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${scoreTone.badgeClass}`}
+              >
+                {scoreTone.label}
               </span>
             </div>
           </div>
@@ -283,6 +324,92 @@ function CvEvaluationView({ profile, data, provider }: CvEvaluationViewProps) {
         </section>
       </div>
 
+      <section className="rounded-3xl border border-white/80 bg-white/65 p-6 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900">
+          Định hướng nghề nghiệp phù hợp
+        </h2>
+
+        <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+          Vai trò đề xuất
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {(data.recommended_roles || []).length > 0 ? (
+            data.recommended_roles.map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-indigo-700"
+              >
+                {item}
+              </span>
+            ))
+          ) : (
+            <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium text-slate-500">
+              Chưa có gợi ý vai trò phù hợp
+            </span>
+          )}
+        </div>
+
+        <div className="mt-4 rounded-2xl border border-sky-100 bg-sky-50/70 p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700">
+            Phân tích độ phù hợp vai trò
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-700 sm:text-base">
+            {data.role_alignment_analysis ||
+              "Hệ thống chưa đủ dữ liệu để phân tích chi tiết định hướng nghề nghiệp. Vui lòng bổ sung thêm CV hoặc highlights cụ thể hơn."}
+          </p>
+        </div>
+      </section>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <section className="rounded-3xl border border-white/80 bg-white/65 p-6 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900">
+            Phân rã dự án/kinh nghiệm nổi bật
+          </h2>
+
+          <div className="mt-4 space-y-4">
+            {data.project_breakdown.map((item, index) => (
+              <article key={`${item.project_or_experience}-${index}`} className="rounded-2xl border border-slate-200 bg-white/80 p-4">
+                <p className="text-sm font-semibold text-slate-900">{item.project_or_experience}</p>
+                <p className="mt-2 text-sm leading-relaxed text-emerald-800">
+                  Điểm nổi bật: {item.standout_points}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-rose-700">
+                  Điểm chưa rõ: {item.unclear_points}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-white/80 bg-white/65 p-6 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900">
+            Cờ đỏ tuyển dụng
+          </h2>
+          <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700 sm:text-base">
+            {data.red_flags.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <section className="rounded-3xl border border-white/80 bg-white/65 p-6 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900">
+          3 hướng câu hỏi hóc búa cần xoáy sâu
+        </h2>
+        <ol className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700 sm:text-base">
+          {data.drill_down_questions.map((item, index) => (
+            <li key={item}>
+              {index + 1}. {item}
+            </li>
+          ))}
+        </ol>
+      </section>
+
       <section className="animate-fade-in-up rounded-3xl border border-white/80 bg-white/65 p-6 backdrop-blur-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] [animation-delay:220ms] [animation-fill-mode:both] sm:p-8">
         <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900 sm:text-2xl">
           Nhận xét tổng quan từ AI
@@ -324,6 +451,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
 
   const score = clampPercentage(data.score);
   const scoreAngle = score * 3.6;
+  const scoreTone = getOverallScoreTone(score);
 
   const toggleAccordion = (id: string) => {
     setOpened((current) => ({
@@ -338,7 +466,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Post Interview Evaluation
+              Đánh giá sau phỏng vấn
             </p>
             <h1 className="mt-2 font-[family-name:var(--font-space-grotesk)] text-2xl font-semibold text-slate-900 sm:text-3xl">
               Kết quả đánh giá sau phỏng vấn
@@ -347,7 +475,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
 
           <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-sky-700">
             <Sparkles className="h-3.5 w-3.5" />
-            AI Engine: {provider}
+            Bộ máy AI: {provider}
           </div>
         </div>
 
@@ -356,7 +484,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
             <div
               className="absolute inset-0 rounded-full"
               style={{
-                background: `conic-gradient(rgba(14,165,233,0.95) ${scoreAngle}deg, rgba(203,213,225,0.48) ${scoreAngle}deg)`,
+                background: `conic-gradient(${scoreTone.conicColor} ${scoreAngle}deg, rgba(203,213,225,0.48) ${scoreAngle}deg)`,
               }}
             />
             <div className="absolute inset-[12px] rounded-full border border-white/80 bg-white/80 backdrop-blur-xl" />
@@ -365,6 +493,11 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
                 {score}
               </span>
               <span className="text-xs uppercase tracking-[0.14em] text-slate-500">Điểm</span>
+              <span
+                className={`mt-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${scoreTone.badgeClass}`}
+              >
+                {scoreTone.label}
+              </span>
             </div>
           </div>
 
@@ -372,7 +505,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
             <article className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">
                 <CircleCheckBig className="h-4 w-4" />
-                Điểm sáng (Pros)
+                Điểm sáng
               </p>
               <ul className="mt-3 space-y-2">
                 {data.strengths.map((item) => (
@@ -386,7 +519,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
             <article className="rounded-2xl border border-rose-200 bg-rose-50/80 p-4">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-rose-700">
                 <CircleX className="h-4 w-4" />
-                Điểm cần cải thiện (Cons)
+                Điểm cần cải thiện
               </p>
               <ul className="mt-3 space-y-2">
                 {data.weaknesses.map((item) => (
@@ -418,6 +551,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
           <div className="space-y-4">
             {data.detailed_review.map((item, index) => {
               const isOpen = Boolean(opened[item.id]);
+              const answerTone = getAnswerScoreTone(item.score);
 
               return (
                 <article
@@ -437,11 +571,23 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
                         {item.question}
                       </p>
                     </div>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-slate-500 transition-transform ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] ${answerTone.badgeClass}`}
+                      >
+                        {item.score}/10 · {answerTone.label}
+                      </span>
+                      {item.is_off_topic ? (
+                        <span className="rounded-full border border-rose-200 bg-rose-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-rose-700">
+                          Lạc đề
+                        </span>
+                      ) : null}
+                      <ChevronDown
+                        className={`h-5 w-5 shrink-0 text-slate-500 transition-transform ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
                   </button>
 
                   {isOpen ? (
@@ -460,7 +606,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
                           Nhận xét của hệ thống
                         </p>
                         <p className="mt-2 text-sm leading-relaxed text-amber-900 sm:text-base">
-                          {item.feedback}
+                          {item.candidate_flaws || item.feedback}
                         </p>
                       </div>
 
@@ -469,7 +615,7 @@ function InterviewResultView({ data, provider }: InterviewResultViewProps) {
                           Câu trả lời mẫu (Gợi ý)
                         </p>
                         <p className="mt-2 text-sm leading-relaxed text-sky-900 sm:text-base">
-                          {item.suggested_answer}
+                          {item.ideal_answer || item.suggested_answer}
                         </p>
                       </div>
                     </div>

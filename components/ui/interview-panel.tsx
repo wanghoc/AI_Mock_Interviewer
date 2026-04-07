@@ -4,6 +4,7 @@ import { ChatBubble } from "@/components/ui/chat-bubble";
 import { ChatComposer } from "@/components/ui/chat-composer";
 import { INTERVIEW_STORAGE_KEYS } from "@/lib/interview/client-storage";
 import type {
+  CvEvaluationResult,
   InterviewCandidateProfile,
   InterviewChatResponse,
   InterviewSessionStatus,
@@ -137,6 +138,92 @@ function parseCandidateProfile(): InterviewCandidateProfile | undefined {
   }
 }
 
+function parseStoredCvEvaluation(input: string | null): CvEvaluationResult | undefined {
+  if (!input) {
+    return undefined;
+  }
+
+  try {
+    const parsed = JSON.parse(input) as unknown;
+
+    if (!parsed || typeof parsed !== "object") {
+      return undefined;
+    }
+
+    const record = parsed as Record<string, unknown>;
+
+    const projectBreakdown = Array.isArray(record.project_breakdown)
+      ? record.project_breakdown
+          .map((item) => {
+            if (!item || typeof item !== "object") {
+              return null;
+            }
+
+            const projectRecord = item as Record<string, unknown>;
+
+            const project_or_experience =
+              typeof projectRecord.project_or_experience === "string"
+                ? projectRecord.project_or_experience.trim()
+                : "";
+            const standout_points =
+              typeof projectRecord.standout_points === "string"
+                ? projectRecord.standout_points.trim()
+                : "";
+            const unclear_points =
+              typeof projectRecord.unclear_points === "string"
+                ? projectRecord.unclear_points.trim()
+                : "";
+
+            if (!project_or_experience || !standout_points || !unclear_points) {
+              return null;
+            }
+
+            return {
+              project_or_experience,
+              standout_points,
+              unclear_points,
+            };
+          })
+          .filter(
+            (
+              item,
+            ): item is {
+              project_or_experience: string;
+              standout_points: string;
+              unclear_points: string;
+            } => item !== null,
+          )
+      : [];
+
+    const asStringArray = (value: unknown): string[] =>
+      Array.isArray(value)
+        ? value
+            .filter((item): item is string => typeof item === "string")
+            .map((item) => item.trim())
+            .filter(Boolean)
+        : [];
+
+    return {
+      score: typeof record.score === "number" ? record.score : 0,
+      strengths: asStringArray(record.strengths),
+      weaknesses: asStringArray(record.weaknesses),
+      role_alignment: asStringArray(record.role_alignment),
+      interview_focus: asStringArray(record.interview_focus),
+      recommended_roles: asStringArray(record.recommended_roles).slice(0, 3),
+      role_alignment_analysis:
+        typeof record.role_alignment_analysis === "string"
+          ? record.role_alignment_analysis
+          : "",
+      project_breakdown: projectBreakdown,
+      red_flags: asStringArray(record.red_flags),
+      drill_down_questions: asStringArray(record.drill_down_questions).slice(0, 3),
+      summary: typeof record.summary === "string" ? record.summary : "",
+    };
+  } catch {
+    return undefined;
+  }
+}
+
 export function InterviewPanel() {
   const router = useRouter();
 
@@ -152,6 +239,8 @@ export function InterviewPanel() {
   const [candidateProfile, setCandidateProfile] =
     useState<InterviewCandidateProfile | undefined>(undefined);
   const [cvContext, setCvContext] = useState("");
+  const [cvEvaluation, setCvEvaluation] =
+    useState<CvEvaluationResult | undefined>(undefined);
 
   const isEvaluating = sessionStatus === "EVALUATING";
 
@@ -194,6 +283,11 @@ export function InterviewPanel() {
     setCandidateProfile(parseCandidateProfile());
     setCvContext(
       window.sessionStorage.getItem(INTERVIEW_STORAGE_KEYS.cvText) ?? "",
+    );
+    setCvEvaluation(
+      parseStoredCvEvaluation(
+        window.sessionStorage.getItem(INTERVIEW_STORAGE_KEYS.cvEvaluation),
+      ),
     );
     window.sessionStorage.setItem(INTERVIEW_STORAGE_KEYS.workflowStep, "interview");
   }, []);
@@ -279,6 +373,7 @@ export function InterviewPanel() {
           language: "vi",
           profile: candidateProfile,
           cvContext,
+          cvEvaluation,
         }),
       });
 
@@ -344,10 +439,10 @@ export function InterviewPanel() {
           <header className="flex items-center justify-between border-b border-slate-200/70 px-5 py-4 sm:px-7">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Live Interview
+                Phỏng vấn trực tiếp
               </p>
               <h2 className="mt-1 font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-slate-900 sm:text-2xl">
-                {(candidateProfile?.targetRole || "Interview")} Session
+                {(candidateProfile?.targetRole || "Vị trí ứng tuyển")} · Phiên phỏng vấn
               </h2>
             </div>
             <span
@@ -357,7 +452,7 @@ export function InterviewPanel() {
                   : "border border-emerald-200 bg-emerald-50 text-emerald-700"
               }`}
             >
-              {isEvaluating ? "Evaluating" : "Recording"}
+              {isEvaluating ? "Đang đánh giá" : "Đang ghi nhận"}
             </span>
           </header>
 
@@ -436,7 +531,7 @@ export function InterviewPanel() {
               </li>
               <li className="flex items-start gap-2 text-sm text-slate-600">
                 <ListChecks className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                AI Provider hiện tại: {chatProvider}.
+                Nhà cung cấp AI hiện tại: {chatProvider}.
               </li>
             </ul>
           </div>

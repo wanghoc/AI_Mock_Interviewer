@@ -655,5 +655,726 @@
       "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
     },
     "createdAt": "2026-04-06T17:00:40.464Z"
+  },
+  {
+    "id": "4c393dcf-280d-49ab-8283-194f55586afa",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775536469148-user",
+        "role": "user",
+        "message": "em thích làm content",
+        "timestamp": "11:34"
+      },
+      {
+        "id": "turn-1775536469606-ai",
+        "role": "ai",
+        "message": "Ở vai trò thực tập sinh Marketing, hãy kể một lần bạn phải đánh đổi kỹ thuật khó (trade-off) và vì sao quyết định cuối cùng là hợp lý.",
+        "timestamp": "11:34"
+      },
+      {
+        "id": "turn-1775536551116-user",
+        "role": "user",
+        "message": "khó nha",
+        "timestamp": "11:35"
+      },
+      {
+        "id": "turn-1775536551728-ai",
+        "role": "ai",
+        "message": "Bạn từng xử lý một sự cố production nào liên quan đến vị trí thực tập sinh Marketing? Hãy nêu nguyên nhân gốc, cách khắc phục và cách phòng ngừa lặp lại.",
+        "timestamp": "11:35"
+      },
+      {
+        "id": "turn-1775536557562-user",
+        "role": "user",
+        "message": "chưa bao giờ",
+        "timestamp": "11:35"
+      },
+      {
+        "id": "turn-1775536557838-ai",
+        "role": "ai",
+        "message": "Hãy chia sẻ một tình huống bạn bất đồng quan điểm kỹ thuật với đồng đội ở vị trí thực tập sinh Marketing và cách bạn đi đến thống nhất.",
+        "timestamp": "11:35"
+      }
+    ],
+    "evaluation": {
+      "score": 69,
+      "strengths": [
+        "Ứng viên đã tham gia luồng hỏi đáp và bám sát chủ đề phỏng vấn.",
+        "Có thể hiện được kinh nghiệm liên quan đến vai trò thực tập sinh Marketing.",
+        "Giọng văn phong và thái độ trả lời mang tính hợp tác."
+      ],
+      "weaknesses": [
+        "Cần bổ sung số liệu kết quả để tăng độ tin cậy cho từng ví dụ.",
+        "Cần đào sâu hơn vào trade-off và cách ra quyết định kỹ thuật.",
+        "Nên kết thúc câu trả lời bằng bài học hoặc tác động kinh doanh rõ ràng hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "qa-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "em thích làm content",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-2",
+          "question": "Ở vai trò thực tập sinh Marketing, hãy kể một lần bạn phải đánh đổi kỹ thuật khó (trade-off) và vì sao quyết định cuối cùng là hợp lý.",
+          "user_answer": "khó nha",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-3",
+          "question": "Bạn từng xử lý một sự cố production nào liên quan đến vị trí thực tập sinh Marketing? Hãy nêu nguyên nhân gốc, cách khắc phục và cách phòng ngừa lặp lại.",
+          "user_answer": "chưa bao giờ",
+          "feedback": "Câu trả lời đã có ý chính, nhưng nên bổ sung số liệu cụ thể, bối cảnh và kết quả để tăng độ thuyết phục.",
+          "suggested_answer": "Hãy trả lời theo cấu trúc Situation -> Action -> Result và bổ sung metric đo lường kết quả."
+        },
+        {
+          "id": "qa-4",
+          "question": "Hãy chia sẻ một tình huống bạn bất đồng quan điểm kỹ thuật với đồng đội ở vị trí thực tập sinh Marketing và cách bạn đi đến thống nhất.",
+          "user_answer": "Ứng viên chưa trả lời cho câu hỏi này.",
+          "feedback": "Ứng viên chưa đưa ra câu trả lời cho câu hỏi này, nên chưa có dữ liệu để đánh giá năng lực.",
+          "suggested_answer": "Nên trả lời ngắn gọn theo cấu trúc Situation -> Action -> Result liên quan đến vai trò thực tập sinh Marketing."
+        }
+      ],
+      "summary": "Hệ thống đã tạo bản đánh giá tạm thời do chưa cấu hình API AI. Bạn có thể thêm OPENAI_API_KEY hoặc GEMINI_API_KEY để nhận nhận xét sâu hơn."
+    },
+    "createdAt": "2026-04-07T04:36:03.581Z"
+  },
+  {
+    "id": "7b1f388d-8e2a-4bf8-a250-f9f8e057c9c7",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775537987551-user",
+        "role": "user",
+        "message": "em là Học, sinh viên năm 4 muốn tìm vị trí thực tập sinh FullSatck để học tập và tìm hiểu về quy trình làm việc chuyên nghiệp của doanh nghiệp, Đồng thời từ đó nhằm nâng cao và cải thiện bản thân cũng như đem lại kết quả tốt hơn cho doanh nghiệp",
+        "timestamp": "11:59"
+      },
+      {
+        "id": "turn-1775537988163-ai",
+        "role": "ai",
+        "message": "Bạn vừa chia sẻ \"em là Học, sinh viên năm 4 muốn tìm vị trí thực tập sinh FullSatck để học tập và tìm hiểu về quy trình làm ...\". Với vị trí FullStack Developer intern, bạn đã tự ra quyết định kỹ thuật nào, đánh đổi gì, cải thiện metric nào, và nếu làm lại bạn sẽ đổi điều gì?",
+        "timestamp": "11:59"
+      },
+      {
+        "id": "turn-1775538003200-user",
+        "role": "user",
+        "message": "hỏi khó z má",
+        "timestamp": "12:00"
+      },
+      {
+        "id": "turn-1775538003579-ai",
+        "role": "ai",
+        "message": "Với vị trí FullStack Developer intern, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-off đã chấp nhận và tác động định lượng.",
+        "timestamp": "12:00"
+      },
+      {
+        "id": "turn-1775538011726-user",
+        "role": "user",
+        "message": "thua",
+        "timestamp": "12:00"
+      },
+      {
+        "id": "turn-1775538012043-ai",
+        "role": "ai",
+        "message": "Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/sau khi triển khai.",
+        "timestamp": "12:00"
+      },
+      {
+        "id": "turn-1775538019872-user",
+        "role": "user",
+        "message": "khó nói",
+        "timestamp": "12:00"
+      },
+      {
+        "id": "turn-1775538020173-ai",
+        "role": "ai",
+        "message": "Trong dự án bạn nói đã tối ưu hiệu năng, bạn đo bằng chỉ số nào, baseline là bao nhiêu, và chứng minh cải thiện ra sao?",
+        "timestamp": "12:00"
+      }
+    ],
+    "evaluation": {
+      "score": 16,
+      "strengths": [
+        "Ứng viên đã hoàn thành một phần phiên hỏi đáp nên vẫn có dữ liệu cơ bản để đánh giá.",
+        "Có thái độ hợp tác trong quá trình trả lời."
+      ],
+      "weaknesses": [
+        "Nhiều câu trả lời thiếu metric hoặc thiếu cấu trúc nên khó chứng minh năng lực thật.",
+        "Một số nội dung trả lời chưa bám sát câu hỏi hoặc chưa đi đủ chiều sâu kỹ thuật.",
+        "Cần cải thiện khả năng diễn đạt theo cấu trúc Situation -> Action -> Result."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "em là Học, sinh viên năm 4 muốn tìm vị trí thực tập sinh FullSatck để học tập và tìm hiểu về quy trình làm việc chuyên nghiệp của doanh nghiệp, Đồng thời từ đó nhằm nâng cao và cải thiện bản thân cũng như đem lại kết quả tốt hơn cho doanh nghiệp",
+          "score": 4,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời còn thiếu chiều sâu kỹ thuật và chưa chứng minh được mức độ phù hợp với câu hỏi.",
+          "ideal_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "feedback": "Câu trả lời còn thiếu chiều sâu kỹ thuật và chưa chứng minh được mức độ phù hợp với câu hỏi.",
+          "suggested_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại."
+        },
+        {
+          "id": "review-2",
+          "question": "Bạn vừa chia sẻ \"em là Học, sinh viên năm 4 muốn tìm vị trí thực tập sinh FullSatck để học tập và tìm hiểu về quy trình làm ...\". Với vị trí FullStack Developer intern, bạn đã tự ra quyết định kỹ thuật nào, đánh đổi gì, cải thiện metric nào, và nếu làm lại bạn sẽ đổi điều gì?",
+          "user_answer": "hỏi khó z má",
+          "score": 2,
+          "is_off_topic": false,
+          "candidate_flaws": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực.",
+          "ideal_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Bạn vừa chia sẻ \"em là Học, sinh viên năm 4 muốn tìm vị trí thực tập sinh FullSatck để học tập và tìm hiểu về quy trình làm ...\". Với vị trí FullStack Developer intern, bạn đã tự ra quyết định kỹ thuật nào, đánh đổi gì, cải thiện metric nào, và nếu làm lại bạn sẽ đổi điều gì?",
+          "feedback": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực.",
+          "suggested_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Bạn vừa chia sẻ \"em là Học, sinh viên năm 4 muốn tìm vị trí thực tập sinh FullSatck để học tập và tìm hiểu về quy trình làm ...\". Với vị trí FullStack Developer intern, bạn đã tự ra quyết định kỹ thuật nào, đánh đổi gì, cải thiện metric nào, và nếu làm lại bạn sẽ đổi điều gì?"
+        },
+        {
+          "id": "review-3",
+          "question": "Với vị trí FullStack Developer intern, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-off đã chấp nhận và tác động định lượng.",
+          "user_answer": "thua",
+          "score": 2,
+          "is_off_topic": false,
+          "candidate_flaws": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực.",
+          "ideal_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Với vị trí FullStack Developer intern, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-off đã chấp nhận và tác động định lượng.",
+          "feedback": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực.",
+          "suggested_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Với vị trí FullStack Developer intern, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-off đã chấp nhận và tác động định lượng."
+        },
+        {
+          "id": "review-4",
+          "question": "Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/sau khi triển khai.",
+          "user_answer": "khó nói",
+          "score": 2,
+          "is_off_topic": false,
+          "candidate_flaws": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực.",
+          "ideal_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/sau khi triển khai.",
+          "feedback": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực.",
+          "suggested_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/sau khi triển khai."
+        },
+        {
+          "id": "review-5",
+          "question": "Trong dự án bạn nói đã tối ưu hiệu năng, bạn đo bằng chỉ số nào, baseline là bao nhiêu, và chứng minh cải thiện ra sao?",
+          "user_answer": "Ứng viên chưa trả lời cho câu hỏi này.",
+          "score": 0,
+          "is_off_topic": true,
+          "candidate_flaws": "Ứng viên không trả lời câu hỏi nên không có dữ liệu để đánh giá năng lực. Đây là thiếu sót nghiêm trọng.",
+          "ideal_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Trong dự án bạn nói đã tối ưu hiệu năng, bạn đo bằng chỉ số nào, baseline là bao nhiêu, và chứng minh cải thiện ra sao?",
+          "feedback": "Ứng viên không trả lời câu hỏi nên không có dữ liệu để đánh giá năng lực. Đây là thiếu sót nghiêm trọng.",
+          "suggested_answer": "Với vai trò FullStack Developer intern, câu trả lời tốt nên theo cấu trúc Situation -> Action -> Result, nêu rõ quyết định kỹ thuật cá nhân, trade-off đã cân nhắc và ít nhất 1 metric định lượng tác động cho câu hỏi: Trong dự án bạn nói đã tối ưu hiệu năng, bạn đo bằng chỉ số nào, baseline là bao nhiêu, và chứng minh cải thiện ra sao?"
+        }
+      ],
+      "summary": "Mức thể hiện thấp: câu trả lời thiếu chiều sâu, có dấu hiệu lạc đề hoặc không nắm ý chính. Cần cải thiện nghiêm túc trước vòng tiếp theo. (Đánh giá fallback do chưa có phản hồi AI provider.)"
+    },
+    "createdAt": "2026-04-07T05:00:27.357Z"
+  },
+  {
+    "id": "9d1b0cab-c865-47f8-859b-56428fa0343e",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775540185302-user",
+        "role": "user",
+        "message": "em là Học, sv năm 4, muốn tìm vị trí thực tập Backend hoặc fullstack để học hỏi và hoàn thiện bản thân hơn nữa",
+        "timestamp": "12:36"
+      },
+      {
+        "id": "turn-1775540185721-ai",
+        "role": "ai",
+        "message": "Bạn vừa chia sẻ \"em là Học, sv năm 4, muốn tìm vị trí thực tập Backend hoặc fullstack để học hỏi và hoàn thiện bản thân hơn nữa\". Với vị trí FullStack Developer intern, bạn đã tự ra quyết định kỹ thuật nào, đánh đổi gì, cải thiện metric nào, và nếu làm lại bạn sẽ đổi điều gì?",
+        "timestamp": "12:36"
+      }
+    ],
+    "evaluation": {
+      "score": 16,
+      "strengths": [
+        "Ứng viên đã hoàn thành một phần phiên hỏi đáp nên vẫn có dữ liệu cơ bản để đánh giá.",
+        "Có thái độ hợp tác trong quá trình trả lời."
+      ],
+      "weaknesses": [
+        "Nhiều câu trả lời thiếu metric hoặc thiếu cấu trúc nên khó chứng minh năng lực thật.",
+        "Một số nội dung trả lời chưa bám sát câu hỏi hoặc chưa đi đủ chiều sâu kỹ thuật.",
+        "Cần cải thiện khả năng diễn đạt theo cấu trúc Situation -> Action -> Result."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "em là Học, sv năm 4, muốn tìm vị trí thực tập Backend hoặc fullstack để học hỏi và hoàn thiện bản thân hơn nữa",
+          "score": 4,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời còn thiếu chiều sâu kỹ thuật và chưa chứng minh được mức độ phù hợp với câu hỏi.",
+          "ideal_answer": "Với câu hỏi về Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại., tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò FullStack Developer intern, và tôi trực tiếp triển khai bằng react. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết.",
+          "feedback": "Câu trả lời còn thiếu chiều sâu kỹ thuật và chưa chứng minh được mức độ phù hợp với câu hỏi.",
+          "suggested_answer": "Với câu hỏi về Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại., tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò FullStack Developer intern, và tôi trực tiếp triển khai bằng react. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết."
+        },
+        {
+          "id": "review-2",
+          "question": "Bạn vừa chia sẻ \"em là Học, sv năm 4, muốn tìm vị trí thực tập Backend hoặc fullstack để học hỏi và hoàn thiện bản thân hơn nữa\". Với vị trí FullStack Developer intern, bạn đã tự ra quyết định kỹ thuật nào, đánh đổi gì, cải thiện metric nào, và nếu làm lại bạn sẽ đổi điều gì?",
+          "user_answer": "Ứng viên chưa trả lời cho câu hỏi này.",
+          "score": 0,
+          "is_off_topic": true,
+          "candidate_flaws": "Ứng viên không trả lời câu hỏi nên không có dữ liệu để đánh giá năng lực. Đây là thiếu sót nghiêm trọng.",
+          "ideal_answer": "Với câu hỏi về Bạn vừa chia sẻ \"em là Học, sv năm 4, muốn tìm vị trí thực tập Backend hoặc fullstack để học hỏi và hoàn thiện bản thân , tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò FullStack Developer intern, và tôi trực tiếp triển khai bằng react. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết.",
+          "feedback": "Ứng viên không trả lời câu hỏi nên không có dữ liệu để đánh giá năng lực. Đây là thiếu sót nghiêm trọng.",
+          "suggested_answer": "Với câu hỏi về Bạn vừa chia sẻ \"em là Học, sv năm 4, muốn tìm vị trí thực tập Backend hoặc fullstack để học hỏi và hoàn thiện bản thân , tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò FullStack Developer intern, và tôi trực tiếp triển khai bằng react. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết."
+        }
+      ],
+      "summary": "Mức thể hiện thấp: câu trả lời thiếu chiều sâu, có dấu hiệu lạc đề hoặc không nắm ý chính. Cần cải thiện nghiêm túc trước vòng tiếp theo. (Đánh giá fallback do chưa có phản hồi AI provider.)"
+    },
+    "createdAt": "2026-04-07T05:36:38.334Z"
+  },
+  {
+    "id": "7d3b1a54-ed8a-4165-b589-d786a024fffb",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775541419552-user",
+        "role": "user",
+        "message": "lô",
+        "timestamp": "12:56"
+      },
+      {
+        "id": "turn-1775541419981-ai",
+        "role": "ai",
+        "message": "Với vị trí Vị trí ứng tuyển, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-off đã chấp nhận và tác động định lượng.",
+        "timestamp": "12:56"
+      },
+      {
+        "id": "turn-1775541428169-user",
+        "role": "user",
+        "message": "gì hỏi quài z",
+        "timestamp": "12:57"
+      },
+      {
+        "id": "turn-1775541428483-ai",
+        "role": "ai",
+        "message": "Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/sau khi triển khai.",
+        "timestamp": "12:57"
+      }
+    ],
+    "evaluation": {
+      "score": 0,
+      "strengths": [
+        "Ứng viên đã hoàn thành một phần phiên hỏi đáp nên vẫn có dữ liệu cơ bản để đánh giá.",
+        "Có thái độ hợp tác trong quá trình trả lời."
+      ],
+      "weaknesses": [
+        "Nhiều câu trả lời thiếu metric hoặc thiếu cấu trúc nên khó chứng minh năng lực thật.",
+        "Một số nội dung trả lời chưa bám sát câu hỏi hoặc chưa đi đủ chiều sâu kỹ thuật.",
+        "Cần cải thiện khả năng diễn đạt theo cấu trúc Situation -> Action -> Result."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "lô",
+          "score": 1,
+          "is_off_topic": true,
+          "candidate_flaws": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực. Câu trả lời lạc đề so với câu hỏi, không đi vào trọng tâm cần đánh giá.",
+          "ideal_answer": "Với câu hỏi về Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại., tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò Vị trí ứng tuyển, và tôi trực tiếp triển khai bằng Next.js. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết.",
+          "feedback": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực. Câu trả lời lạc đề so với câu hỏi, không đi vào trọng tâm cần đánh giá.",
+          "suggested_answer": "Với câu hỏi về Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại., tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò Vị trí ứng tuyển, và tôi trực tiếp triển khai bằng Next.js. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết."
+        },
+        {
+          "id": "review-2",
+          "question": "Với vị trí Vị trí ứng tuyển, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-off đã chấp nhận và tác động định lượng.",
+          "user_answer": "gì hỏi quài z",
+          "score": 1,
+          "is_off_topic": true,
+          "candidate_flaws": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực. Câu trả lời lạc đề so với câu hỏi, không đi vào trọng tâm cần đánh giá.",
+          "ideal_answer": "Với câu hỏi về Với vị trí Vị trí ứng tuyển, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-, tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò Vị trí ứng tuyển, và tôi trực tiếp triển khai bằng Next.js. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết.",
+          "feedback": "Trả lời quá ngắn (< 15 từ), thiếu dữ kiện để chứng minh năng lực. Câu trả lời lạc đề so với câu hỏi, không đi vào trọng tâm cần đánh giá.",
+          "suggested_answer": "Với câu hỏi về Với vị trí Vị trí ứng tuyển, bạn hãy nêu một quyết định kỹ thuật bạn trực tiếp sở hữu, các phương án đã cân nhắc, trade-, tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò Vị trí ứng tuyển, và tôi trực tiếp triển khai bằng Next.js. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết."
+        },
+        {
+          "id": "review-3",
+          "question": "Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/sau khi triển khai.",
+          "user_answer": "Ứng viên chưa trả lời cho câu hỏi này.",
+          "score": 0,
+          "is_off_topic": true,
+          "candidate_flaws": "Ứng viên không trả lời câu hỏi nên không có dữ liệu để đánh giá năng lực. Đây là thiếu sót nghiêm trọng.",
+          "ideal_answer": "Với câu hỏi về Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/s, tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò Vị trí ứng tuyển, và tôi trực tiếp triển khai bằng Next.js. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết.",
+          "feedback": "Ứng viên không trả lời câu hỏi nên không có dữ liệu để đánh giá năng lực. Đây là thiếu sót nghiêm trọng.",
+          "suggested_answer": "Với câu hỏi về Bạn hãy chọn dự án quan trọng nhất trong CV và mô tả chính xác module bạn sở hữu, kiến trúc áp dụng, cùng metric trước/s, tôi đã gặp đúng bài toán này khi làm một dự án sản phẩm nội bộ cho vai trò Vị trí ứng tuyển, và tôi trực tiếp triển khai bằng Next.js. Tôi tách vấn đề thành các bước rõ ràng, ưu tiên xử lý phần lõi trước rồi mới tối ưu hiệu năng và độ ổn định production. Sau khi triển khai, tôi theo dõi metric sau release và ghi nhận kết quả cải thiện rõ rệt so với baseline ban đầu. Kinh nghiệm đó giúp tôi trả lời câu hỏi này bằng dữ liệu thực tế thay vì mô tả lý thuyết."
+        }
+      ],
+      "summary": "Mức thể hiện thấp: câu trả lời thiếu chiều sâu, có dấu hiệu lạc đề hoặc không nắm ý chính. Cần cải thiện nghiêm túc trước vòng tiếp theo. (Đánh giá fallback do chưa có phản hồi AI provider.)"
+    },
+    "createdAt": "2026-04-07T05:57:17.197Z"
+  },
+  {
+    "id": "136e1256-cb27-4fb4-bc1e-a3e945d4074d",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775550222884-user",
+        "role": "user",
+        "message": "tôi thích marketing",
+        "timestamp": "15:23"
+      },
+      {
+        "id": "turn-1775550223237-ai",
+        "role": "ai",
+        "message": "Hiểu rồi, cảm ơn bạn đã chia sẻ. Với vị trí vị trí ứng tuyển, ở phần việc bạn vừa nói, bạn trực tiếp phụ trách bước nào và bạn gặp khó khăn lớn nhất ở bước đó là gì?",
+        "timestamp": "15:23"
+      },
+      {
+        "id": "turn-1775550258917-user",
+        "role": "user",
+        "message": "tôi viết content và quay video, khó khăn lớn nhất là lên ý tưởng để thực hiện",
+        "timestamp": "15:24"
+      },
+      {
+        "id": "turn-1775550259288-ai",
+        "role": "ai",
+        "message": "Hiểu rồi, cảm ơn bạn đã chia sẻ. Với vị trí vị trí ứng tuyển, ở phần việc bạn vừa nói, bạn trực tiếp phụ trách bước nào và bạn gặp khó khăn lớn nhất ở bước đó là gì?",
+        "timestamp": "15:24"
+      },
+      {
+        "id": "turn-1775550263829-user",
+        "role": "user",
+        "message": "?",
+        "timestamp": "15:24"
+      },
+      {
+        "id": "turn-1775550264094-ai",
+        "role": "ai",
+        "message": "Hiểu rồi, cảm ơn bạn đã chia sẻ. Với vị trí vị trí ứng tuyển, ở phần việc bạn vừa nói, bạn trực tiếp phụ trách bước nào và bạn gặp khó khăn lớn nhất ở bước đó là gì?",
+        "timestamp": "15:24"
+      }
+    ],
+    "evaluation": {
+      "score": 21,
+      "strengths": [
+        "Ứng viên có phản hồi cơ bản ở một số câu hỏi, đủ để tạo mặt bằng đánh giá ban đầu.",
+        "Vẫn còn tiềm năng cải thiện nếu tăng tính cụ thể và bằng chứng thực tế trong câu trả lời."
+      ],
+      "weaknesses": [
+        "Nhiều câu trả lời còn thiếu số liệu đo lường và chưa làm rõ mức độ sở hữu công việc.",
+        "Có câu trả lời lệch trọng tâm hoặc mức liên quan thấp, làm giảm độ tin cậy của buổi phỏng vấn.",
+        "Một số câu trả lời quá ngắn (< 15 từ), chưa đủ dữ liệu để xác thực chiều sâu.",
+        "Cần cải thiện cấu trúc lập luận về các tình huống đánh đổi, quyết định kỹ thuật và tác động thực tế."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "tôi thích marketing",
+          "score": 3,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời quá ngắn (< 15 từ), không đủ dữ liệu để đánh giá độ sâu.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời quá ngắn (< 15 từ), không đủ dữ liệu để đánh giá độ sâu.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-2",
+          "question": "Hiểu rồi, cảm ơn bạn đã chia sẻ. Với vị trí vị trí ứng tuyển, ở phần việc bạn vừa nói, bạn trực tiếp phụ trách bước nào và bạn gặp khó khăn lớn nhất ở bước đó là gì?",
+          "user_answer": "tôi viết content và quay video, khó khăn lớn nhất là lên ý tưởng để thực hiện",
+          "score": 4,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời thiếu chiều sâu và chưa có bằng chứng cụ thể.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời thiếu chiều sâu và chưa có bằng chứng cụ thể.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-3",
+          "question": "Hiểu rồi, cảm ơn bạn đã chia sẻ. Với vị trí vị trí ứng tuyển, ở phần việc bạn vừa nói, bạn trực tiếp phụ trách bước nào và bạn gặp khó khăn lớn nhất ở bước đó là gì?",
+          "user_answer": "?",
+          "score": 3,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời quá ngắn (< 15 từ), không đủ dữ liệu để đánh giá độ sâu.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời quá ngắn (< 15 từ), không đủ dữ liệu để đánh giá độ sâu.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-4",
+          "question": "Hiểu rồi, cảm ơn bạn đã chia sẻ. Với vị trí vị trí ứng tuyển, ở phần việc bạn vừa nói, bạn trực tiếp phụ trách bước nào và bạn gặp khó khăn lớn nhất ở bước đó là gì?",
+          "user_answer": "Ứng viên chưa trả lời câu hỏi này.",
+          "score": 0,
+          "is_off_topic": true,
+          "candidate_flaws": "Ứng viên không trả lời câu hỏi, nên chưa thể đánh giá năng lực phỏng vấn.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Ứng viên không trả lời câu hỏi, nên chưa thể đánh giá năng lực phỏng vấn.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        }
+      ],
+      "summary": "Đánh giá nghiêm ngặt: chất lượng trả lời hiện còn yếu, chưa đạt mức sẵn sàng phỏng vấn."
+    },
+    "createdAt": "2026-04-07T08:24:28.204Z"
+  },
+  {
+    "id": "ba4e98e4-713c-4ade-bb9b-e1797e7f3a8c",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775581719282-user",
+        "role": "user",
+        "message": "hello",
+        "timestamp": "00:08"
+      },
+      {
+        "id": "turn-1775581719715-ai",
+        "role": "ai",
+        "message": "Chào bạn! Để bắt đầu, bạn hãy kể về một dự án hoặc đầu việc gần nhất mà bạn tham gia cho vị trí thực tập sinh Marketing — bạn trực tiếp làm phần nào và kết quả ra sao?",
+        "timestamp": "00:08"
+      },
+      {
+        "id": "turn-1775581753219-user",
+        "role": "user",
+        "message": "tôi viết content và dựng video, tôi thường làm content theo xu hướng hài hước và dính tới genz",
+        "timestamp": "00:09"
+      },
+      {
+        "id": "turn-1775581753594-ai",
+        "role": "ai",
+        "message": "Rõ rồi, cảm ơn bạn chia sẻ. Ở phần việc bạn vừa nói, bạn gặp khó khăn lớn nhất ở bước nào và bạn đã xử lý thế nào?",
+        "timestamp": "00:09"
+      },
+      {
+        "id": "turn-1775581769771-user",
+        "role": "user",
+        "message": "ở phần viết content, rất hay bí ý tưởng",
+        "timestamp": "00:09"
+      },
+      {
+        "id": "turn-1775581770065-ai",
+        "role": "ai",
+        "message": "Rõ rồi, cảm ơn bạn chia sẻ. Ở phần việc bạn vừa nói, bạn gặp khó khăn lớn nhất ở bước nào và bạn đã xử lý thế nào?",
+        "timestamp": "00:09"
+      },
+      {
+        "id": "turn-1775581774363-user",
+        "role": "user",
+        "message": ".",
+        "timestamp": "00:09"
+      },
+      {
+        "id": "turn-1775581774638-ai",
+        "role": "ai",
+        "message": "Rõ rồi, cảm ơn bạn chia sẻ. Ở phần việc bạn vừa nói, bạn gặp khó khăn lớn nhất ở bước nào và bạn đã xử lý thế nào?",
+        "timestamp": "00:09"
+      }
+    ],
+    "evaluation": {
+      "score": 22,
+      "strengths": [
+        "Ứng viên có phản hồi cơ bản ở một số câu hỏi, đủ để tạo mặt bằng đánh giá ban đầu.",
+        "Vẫn còn tiềm năng cải thiện nếu tăng tính cụ thể và bằng chứng thực tế trong câu trả lời."
+      ],
+      "weaknesses": [
+        "5/5 câu trả lời chưa đạt yêu cầu (dưới 5/10 điểm), cho thấy kiến thức chưa đồng đều.",
+        "2 câu trả lời lệch trọng tâm, cần cải thiện khả năng nắm bắt ý câu hỏi.",
+        "4 câu trả lời quá ngắn (< 15 từ), thiếu chi tiết để đánh giá năng lực.",
+        "Cần cải thiện cấu trúc lập luận và bổ sung bằng chứng cụ thể hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "hello",
+          "score": 3,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-2",
+          "question": "Chào bạn! Để bắt đầu, bạn hãy kể về một dự án hoặc đầu việc gần nhất mà bạn tham gia cho vị trí thực tập sinh Marketing — bạn trực tiếp làm phần nào và kết quả ra sao?",
+          "user_answer": "tôi viết content và dựng video, tôi thường làm content theo xu hướng hài hước và dính tới genz",
+          "score": 3,
+          "is_off_topic": true,
+          "candidate_flaws": "Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-3",
+          "question": "Rõ rồi, cảm ơn bạn chia sẻ. Ở phần việc bạn vừa nói, bạn gặp khó khăn lớn nhất ở bước nào và bạn đã xử lý thế nào?",
+          "user_answer": "ở phần viết content, rất hay bí ý tưởng",
+          "score": 3,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-4",
+          "question": "Rõ rồi, cảm ơn bạn chia sẻ. Ở phần việc bạn vừa nói, bạn gặp khó khăn lớn nhất ở bước nào và bạn đã xử lý thế nào?",
+          "user_answer": ".",
+          "score": 3,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        },
+        {
+          "id": "review-5",
+          "question": "Rõ rồi, cảm ơn bạn chia sẻ. Ở phần việc bạn vừa nói, bạn gặp khó khăn lớn nhất ở bước nào và bạn đã xử lý thế nào?",
+          "user_answer": "Ứng viên chưa trả lời câu hỏi này.",
+          "score": 3,
+          "is_off_topic": true,
+          "candidate_flaws": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu. Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "ideal_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết.",
+          "feedback": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu. Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "suggested_answer": "Tôi sẽ trả lời bằng một tình huống thực tế khi tôi trực tiếp chịu trách nhiệm xuyên suốt một đầu việc cho vị trí thực tập sinh Marketing và triển khai bằng Next.js. Tôi chia bài toán thành các bước rõ ràng, nêu quyết định quan trọng và lý do chọn phương án trong giới hạn thời gian và nguồn lực. Sau khi triển khai, tôi đo tác động bằng chỉ số cụ thể và so sánh với mốc ban đầu để xác nhận giải pháp có hiệu quả. Cách trả lời này thể hiện trải nghiệm thực tế và quyền sở hữu công việc, không chỉ là lý thuyết."
+        }
+      ],
+      "summary": "Buổi phỏng vấn cho thấy ứng viên chưa đáp ứng được yêu cầu cơ bản. Đề xuất: Không đủ điều kiện qua vòng này, cần bổ sung kiến thức nền tảng đáng kể trước khi phỏng vấn lại."
+    },
+    "createdAt": "2026-04-07T17:09:39.124Z"
+  },
+  {
+    "id": "0b4e1864-e433-486a-82f4-158e20007237",
+    "provider": "fallback",
+    "transcript": [
+      {
+        "id": "turn-1",
+        "role": "ai",
+        "message": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+        "timestamp": "09:01"
+      },
+      {
+        "id": "turn-1775585398757-user",
+        "role": "user",
+        "message": "tôi là Học, thích làm content và các chiến dịch marketing nên ứng cử vào vị trí thực tập sinh marketing",
+        "timestamp": "01:09"
+      },
+      {
+        "id": "turn-1775585403355-ai",
+        "role": "ai",
+        "message": "Chào bạn! Tôi thấy trong CV bạn có nhắc đến \"Dự án trọng điểm #1\". Bạn có thể mô tả cụ thể vai trò của bạn trong đó — bạn trực tiếp phụ trách phần nào và kết quả ra sao?",
+        "timestamp": "01:10"
+      },
+      {
+        "id": "turn-1775585446121-user",
+        "role": "user",
+        "message": "tôi lên kế hoạch, xây dựng content, build kênh tiktok từ đầu đến 3k followers, tôi phụ trách mọi quy trình",
+        "timestamp": "01:10"
+      },
+      {
+        "id": "turn-1775585447739-ai",
+        "role": "ai",
+        "message": "Vậy kết quả cụ thể đo lường được từ phần việc đó là gì — bạn có con số nào không?",
+        "timestamp": "01:10"
+      },
+      {
+        "id": "turn-1775585488010-user",
+        "role": "user",
+        "message": "có, kênh sau 1 tháng đã có hơn 30k followers, 12tr views và 1tr tim",
+        "timestamp": "01:11"
+      },
+      {
+        "id": "turn-1775585489344-ai",
+        "role": "ai",
+        "message": "Trước khi chọn cách làm đó, bạn đã cân nhắc phương án nào khác và vì sao loại bỏ?",
+        "timestamp": "01:11"
+      }
+    ],
+    "evaluation": {
+      "score": 21,
+      "strengths": [
+        "Ứng viên có phản hồi cơ bản ở một số câu hỏi, đủ để tạo mặt bằng đánh giá ban đầu.",
+        "Vẫn còn tiềm năng cải thiện nếu tăng tính cụ thể và bằng chứng thực tế trong câu trả lời."
+      ],
+      "weaknesses": [
+        "4/4 câu trả lời chưa đạt yêu cầu (dưới 5/10 điểm), cho thấy kiến thức chưa đồng đều.",
+        "3 câu trả lời lệch trọng tâm, cần cải thiện khả năng nắm bắt ý câu hỏi.",
+        "1 câu trả lời quá ngắn (< 15 từ), thiếu chi tiết để đánh giá năng lực.",
+        "Cần cải thiện cấu trúc lập luận và bổ sung bằng chứng cụ thể hơn."
+      ],
+      "detailed_review": [
+        {
+          "id": "review-1",
+          "question": "Xin chào! Hãy giới thiệu ngắn gọn về bản thân và lý do bạn quan tâm vị trí ứng tuyển hiện tại.",
+          "user_answer": "tôi là Học, thích làm content và các chiến dịch marketing nên ứng cử vào vị trí thực tập sinh marketing",
+          "score": 3,
+          "is_off_topic": true,
+          "candidate_flaws": "Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "ideal_answer": "Tôi đã triển khai một chiến dịch marketing cho thực tập sinh Marketing, bắt đầu từ việc nghiên cứu đối tượng mục tiêu, lên kế hoạch nội dung và phân bổ ngân sách qua Content Marketing. Tôi theo dõi hiệu quả chiến dịch bằng các chỉ số CTR, conversion rate, và chi phí trên mỗi chuyển đổi. Kết quả cho thấy hiệu suất tăng đáng kể so với giai đoạn trước, và tôi rút ra kinh nghiệm quan trọng về việc tối ưu thông điệp phù hợp từng kênh.",
+          "feedback": "Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "suggested_answer": "Tôi đã triển khai một chiến dịch marketing cho thực tập sinh Marketing, bắt đầu từ việc nghiên cứu đối tượng mục tiêu, lên kế hoạch nội dung và phân bổ ngân sách qua Content Marketing. Tôi theo dõi hiệu quả chiến dịch bằng các chỉ số CTR, conversion rate, và chi phí trên mỗi chuyển đổi. Kết quả cho thấy hiệu suất tăng đáng kể so với giai đoạn trước, và tôi rút ra kinh nghiệm quan trọng về việc tối ưu thông điệp phù hợp từng kênh."
+        },
+        {
+          "id": "review-2",
+          "question": "Chào bạn! Tôi thấy trong CV bạn có nhắc đến \"Dự án trọng điểm #1\". Bạn có thể mô tả cụ thể vai trò của bạn trong đó — bạn trực tiếp phụ trách phần nào và kết quả ra sao?",
+          "user_answer": "tôi lên kế hoạch, xây dựng content, build kênh tiktok từ đầu đến 3k followers, tôi phụ trách mọi quy trình",
+          "score": 4,
+          "is_off_topic": false,
+          "candidate_flaws": "Câu trả lời thiếu chiều sâu và chưa có bằng chứng cụ thể.",
+          "ideal_answer": "Tôi đã trực tiếp phụ trách một dự án liên quan đến thực tập sinh Marketing, sử dụng Content Marketing. Tôi xác định rõ mục tiêu, phân chia công việc theo từng giai đoạn, và tự chủ xử lý các vấn đề phát sinh. Kết quả cuối cùng tôi đạt được là cải thiện chỉ số KPI chính lên khoảng 20-30% so với trước khi triển khai, và tôi rút ra bài học quan trọng về cách quản lý thời gian và ưu tiên công việc.",
+          "feedback": "Câu trả lời thiếu chiều sâu và chưa có bằng chứng cụ thể.",
+          "suggested_answer": "Tôi đã trực tiếp phụ trách một dự án liên quan đến thực tập sinh Marketing, sử dụng Content Marketing. Tôi xác định rõ mục tiêu, phân chia công việc theo từng giai đoạn, và tự chủ xử lý các vấn đề phát sinh. Kết quả cuối cùng tôi đạt được là cải thiện chỉ số KPI chính lên khoảng 20-30% so với trước khi triển khai, và tôi rút ra bài học quan trọng về cách quản lý thời gian và ưu tiên công việc."
+        },
+        {
+          "id": "review-3",
+          "question": "Vậy kết quả cụ thể đo lường được từ phần việc đó là gì — bạn có con số nào không?",
+          "user_answer": "có, kênh sau 1 tháng đã có hơn 30k followers, 12tr views và 1tr tim",
+          "score": 3,
+          "is_off_topic": true,
+          "candidate_flaws": "Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "ideal_answer": "Tôi đo lường kết quả bằng các chỉ số cụ thể phù hợp với vai trò thực tập sinh Marketing. Ví dụ trong dự án gần nhất, tôi đặt mục tiêu rõ ràng từ đầu, theo dõi tiến độ hàng tuần bằng Content Marketing, và cuối cùng đạt được kết quả vượt mục tiêu ban đầu khoảng 15%. Tôi cũng tổng hợp bài học kinh nghiệm để áp dụng cho các dự án tiếp theo.",
+          "feedback": "Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "suggested_answer": "Tôi đo lường kết quả bằng các chỉ số cụ thể phù hợp với vai trò thực tập sinh Marketing. Ví dụ trong dự án gần nhất, tôi đặt mục tiêu rõ ràng từ đầu, theo dõi tiến độ hàng tuần bằng Content Marketing, và cuối cùng đạt được kết quả vượt mục tiêu ban đầu khoảng 15%. Tôi cũng tổng hợp bài học kinh nghiệm để áp dụng cho các dự án tiếp theo."
+        },
+        {
+          "id": "review-4",
+          "question": "Trước khi chọn cách làm đó, bạn đã cân nhắc phương án nào khác và vì sao loại bỏ?",
+          "user_answer": "Ứng viên chưa trả lời câu hỏi này.",
+          "score": 3,
+          "is_off_topic": true,
+          "candidate_flaws": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu. Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "ideal_answer": "Tôi đã triển khai một chiến dịch marketing cho thực tập sinh Marketing, bắt đầu từ việc nghiên cứu đối tượng mục tiêu, lên kế hoạch nội dung và phân bổ ngân sách qua Content Marketing. Tôi theo dõi hiệu quả chiến dịch bằng các chỉ số CTR, conversion rate, và chi phí trên mỗi chuyển đổi. Kết quả cho thấy hiệu suất tăng đáng kể so với giai đoạn trước, và tôi rút ra kinh nghiệm quan trọng về việc tối ưu thông điệp phù hợp từng kênh.",
+          "feedback": "Câu trả lời quá ngắn, không đủ dữ liệu để đánh giá độ sâu. Câu trả lời lệch trọng tâm hoặc không bám đúng ý định câu hỏi.",
+          "suggested_answer": "Tôi đã triển khai một chiến dịch marketing cho thực tập sinh Marketing, bắt đầu từ việc nghiên cứu đối tượng mục tiêu, lên kế hoạch nội dung và phân bổ ngân sách qua Content Marketing. Tôi theo dõi hiệu quả chiến dịch bằng các chỉ số CTR, conversion rate, và chi phí trên mỗi chuyển đổi. Kết quả cho thấy hiệu suất tăng đáng kể so với giai đoạn trước, và tôi rút ra kinh nghiệm quan trọng về việc tối ưu thông điệp phù hợp từng kênh."
+        }
+      ],
+      "summary": "Buổi phỏng vấn cho thấy ứng viên chưa đáp ứng được yêu cầu cơ bản. Đề xuất: Không đủ điều kiện qua vòng này, cần bổ sung kiến thức nền tảng đáng kể trước khi phỏng vấn lại."
+    },
+    "createdAt": "2026-04-07T18:11:40.222Z"
   }
 ]
